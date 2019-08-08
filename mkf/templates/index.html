@@ -1,0 +1,1682 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>迈客风商城 — 为您精选正品买手机低价,品质保障,放心服务,轻松购物!</title>
+<meta name="keywords" content="迈客风商城,megaphone,手机,买手机,平板电脑,电脑,笔记本电脑,平板,平板手机,平板电视,相机,单反相机,数码相机,数码,家电,电器,电视机,3c数码,电脑配件,手机配件,小家电,品牌家电,手机商城" />
+<meta name="description" content="迈客风商城 - 线上线下大型综合购物商城，涵盖手机、电脑、智能配件、美妆个护、日用百货等各品类，100%正品、可门店自提、更专业和优质的服务，我们做不一样的体验！" />
+<meta name="author" content="迈客风(megaphone)">
+<meta name="copyright" content="迈客风(megaphone). All Rights Reserved">
+<meta name="renderer" content="webkit">
+<meta name="renderer" content="ie-stand">
+<style type="text/css">
+body { _behavior: url(http://www.51mkf.com/shop/templates/default/css/csshover.htc);
+}
+</style>
+<link href="http://www.51mkf.com/shop/templates/default/css/swiper.min.css" rel="stylesheet" type="text/css">
+<link href="http://www.51mkf.com/shop/templates/default/css/base.css" rel="stylesheet" type="text/css">
+<link href="http://www.51mkf.com/shop/templates/default/css/home_header.css" rel="stylesheet" type="text/css">
+<link href="http://www.51mkf.com/shop/resource/font/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+<!--[if IE 7]>
+  <link rel="stylesheet" href="http://www.51mkf.com/shop/resource/font/font-awesome/css/font-awesome-ie7.min.css">
+<![endif]-->
+<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+      <script src="http://www.51mkf.com/data/resource/js/html5shiv.js"></script>
+      <script src="http://www.51mkf.com/data/resource/js/respond.min.js"></script>
+<![endif]-->
+
+    <script>
+var COOKIE_PRE = '14C5_';var _CHARSET = 'utf-8';var LOGIN_SITE_URL = 'http://www.51mkf.com/member';var MEMBER_SITE_URL = 'http://www.51mkf.com/member';var SITEURL = 'http://www.51mkf.com/shop';var SHOP_SITE_URL = 'http://www.51mkf.com/shop';var RESOURCE_SITE_URL = 'http://www.51mkf.com/data/resource';var RESOURCE_SITE_URL = 'http://www.51mkf.com/data/resource';var SHOP_TEMPLATES_URL = 'http://www.51mkf.com/shop/templates/default';
+</script>
+<script src="http://www.51mkf.com/data/resource/js/jquery.js"></script>
+<script src="http://www.51mkf.com/data/resource/js/common.js" charset="utf-8"></script>
+<script src="http://www.51mkf.com/data/resource/js/jquery-ui/jquery.ui.js"></script>
+<script src="http://www.51mkf.com/data/resource/js/jquery.validation.min.js"></script>
+<script src="http://www.51mkf.com/data/resource/js/dialog/dialog.js" id="dialog_js" charset="utf-8"></script>
+<script type="text/javascript">
+var PRICE_FORMAT = '&yen;%s';
+$(function(){
+	//首页左侧分类菜单
+	$(".category ul.menu").find("li").each(
+		function() {
+			$(this).hover(
+				function() {
+				    var cat_id = $(this).attr("cat_id");
+					var menu = $(this).find("div[cat_menu_id='"+cat_id+"']");
+					menu.show();
+					$(this).addClass("hover");
+					var menu_height = menu.height();
+					if (menu_height < 60) menu.height(80);
+					menu_height = menu.height();
+					var li_top = $(this).position().top;
+					$(menu).css("top",-li_top + 38);
+				},
+				function() {
+					$(this).removeClass("hover");
+				    var cat_id = $(this).attr("cat_id");
+					$(this).find("div[cat_menu_id='"+cat_id+"']").hide();
+				}
+			);
+		}
+	);
+	$(".head-user-menu dl").hover(function() {
+		$(this).addClass("hover");
+	},
+	function() {
+		$(this).removeClass("hover");
+	});
+	$('.head-user-menu .my-mall').mouseover(function(){// 最近浏览的商品
+		load_history_information();
+		$(this).unbind('mouseover');
+	});
+	$('.head-user-menu .my-cart').mouseover(function(){// 运行加载购物车
+		load_cart_information();
+		$(this).unbind('mouseover');
+	});
+	$('#button').click(function(){
+	    if ($('#keyword').val() == '') {
+		    if ($('#keyword').attr('data-value') == '') {
+			    return false
+			} else {
+				window.location.href="http://www.51mkf.com/shop/index.php?act=search&op=index&keyword="+$('#keyword').attr('data-value');
+			    return false;
+			}
+	    }
+	});
+	$(".head-search-bar").hover(null,
+	function() {
+		$('#search-tip').hide();
+	});
+	// input ajax tips
+	$('#keyword').focus(function(){$('#search-tip').show()}).autocomplete({
+		//minLength:0,
+        source: function (request, response) {
+            $.getJSON('http://www.51mkf.com/shop/index.php?act=search&op=auto_complete', request, function (data, status, xhr) {
+                $('#top_search_box > ul').unwrap();
+                response(data);
+                if (status == 'success') {
+                    $('#search-tip').hide();
+                    $(".head-search-bar").unbind('mouseover');
+                    $('body > ul:last').wrap("<div id='top_search_box'></div>").css({'zIndex':'1000','width':'362px'});
+                }
+            });
+       },
+		select: function(ev,ui) {
+			$('#keyword').val(ui.item.label);
+			$('#top_search_form').submit();
+		}
+	});
+	$('#search-his-del').on('click',function(){$.cookie('14C5_his_sh',null,{path:'/'});$('#search-his-list').empty();});
+});
+</script>
+</head>
+<body>
+<!-- PublicTopLayout Begin -->
+<!-- END TOPTOPBANNER -->
+<div id="append_parent"></div>
+<div id="ajaxwaitid"></div>
+<div id="ncToolbar" class="nc-appbar">
+  <div class="nc-appbar-tabs" id="appBarTabs">
+    <div class="ever">
+            <div class="cart"><a href="javascript:void(0);" id="rtoolbar_cart"><span class="icon"></span> <span class="name">购物车</span><i id="rtoobar_cart_count" class="new_msg" style="display:none;"></i></a></div>
+            <div class="chat"><a href="javascript:void(0);" id="chat_show_user"><span class="icon"></span><i id="new_msg" class="new_msg" style="display:none;"></i><span class="tit">在线联系</span></a></div>
+    </div>
+    <div class="variation">
+      <div class="middle">
+<script src="http://www.51mkf.com/shop/index.php?act=index&op=logina"></script>
+        <div class="prech">&nbsp;</div>
+                <div class="compare"><a href="javascript:void(0);" id="compare"><span class="icon"></span><span class="tit">商品对比</span></a></div>
+
+              </div>
+      <div class="gotop"><a href="javascript:void(0);" id="gotop"><span class="icon"></span><span class="tit">返回顶部</span></a></div>
+        <div class="gotop" style="bottom:40px;"><a href="javascript:void(0);" style="opacity: 1;"><span class="icon" style="background-position: 0 -160px;"></span><span class="tit" style="width:120px; height:140px;background:#f32613; top:-134px; right:35px; padding:20px 10px; line-height:20px;text-align:center;border-top-left-radius:10px; border-bottom-left-radius:10px;  "><img src="http://www.51mkf.com/data/upload/shop/common/mb_app.png" style="display:block; margin:0 auto 6px;">下载迈客风APP<br>精彩特惠每一天</span></a></div>
+
+    </div>
+    <div class="content-box" id="content-djj">
+      <div class="top"><h3>优惠卷</h3> <a href="javascript:void(0);" class="close" title="隐藏"></a></div>
+        <div id="djjlist">
+
+
+        </div>
+     </div>
+
+    <div class="content-box" id="content-compare">
+      <div class="top">
+        <h3>商品对比</h3>
+        <a href="javascript:void(0);" class="close" title="隐藏"></a></div>
+      <div id="comparelist"></div>
+    </div>
+    <div class="content-box" id="content-cart">
+      <div class="top">
+        <h3>我的购物车</h3>
+        <a href="javascript:void(0);" class="close" title="隐藏"></a></div>
+      <div id="rtoolbar_cartlist"></div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+//登录开关状态
+var connect_qq = "1";
+var connect_sn = "1";
+var connect_wx = "1";
+
+var connect_weixin_appid = "wx7ea54c6135ae9655";
+//返回顶部
+backTop=function (btnId){
+	var btn=document.getElementById(btnId);
+	var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+	window.onscroll=set;
+	btn.onclick=function (){
+		btn.style.opacity="0.5";
+		window.onscroll=null;
+		this.timer=setInterval(function(){
+		    scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+			scrollTop-=Math.ceil(scrollTop*0.1);
+			if(scrollTop==0) clearInterval(btn.timer,window.onscroll=set);
+			if (document.documentElement.scrollTop > 0) document.documentElement.scrollTop=scrollTop;
+			if (document.body.scrollTop > 0) document.body.scrollTop=scrollTop;
+		},10);
+	};
+	function set(){
+	    scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+	    btn.style.opacity=scrollTop?'1':"0.5";
+	}
+};
+backTop('gotop');
+
+//动画显示边条内容区域
+$(function() {
+    ncToolbar();
+    $(window).resize(function() {
+        ncToolbar();
+    });
+    function ncToolbar() {
+        if ($(window).width() >= 1240) {
+            $('#appBarTabs >.variation').show();
+        } else {
+            $('#appBarTabs >.variation').hide();
+        }
+    }
+    $('#appBarTabs').hover(
+        function() {
+            $('#appBarTabs >.variation').show();
+        },
+        function() {
+            ncToolbar();
+        }
+    );
+    $("#compare").click(function(){
+    	if ($("#content-compare").css('right') == '-210px') {
+ 		   loadCompare(false);
+ 		   $('#content-cart').animate({'right': '-210px'});
+		   $('#content-djj').animate({'right': '-210px'});
+  		   $("#content-compare").animate({right:'35px'});
+    	} else {
+    		$(".close").click();
+    		$(".chat-list").css("display",'none');
+        }
+	});
+$("#rtoolbar_djj").click(function(){
+  if ($("#content-djj").css('right') == '-210px') {
+	 $("#djjlist").load(SHOP_SITE_URL+ '/index.php?act=goods&op=youhuijuan_min');
+   	 $('#content-compare').animate({'right': '-210px'});
+	 $('#content-cart').animate({'right': '-210px'});
+	 $("#content-djj").animate({right:'35px'});
+  } else {
+	$(".close").click();
+	$(".chat-list").css("display",'none');
+	}
+});
+    $("#rtoolbar_cart").click(function(){
+        if ($("#content-cart").css('right') == '-210px') {
+         	$('#content-compare').animate({'right': '-210px'});
+    		$("#content-cart").animate({right:'35px'});
+    		if (!$("#rtoolbar_cartlist").html()) {
+    			$("#rtoolbar_cartlist").load(SHOP_SITE_URL+ '/index.php?act=cart&op=ajax_load&type=html');
+    		}
+        } else {
+        	$(".close").click();
+        	$(".chat-list").css("display",'none');
+        }
+	});
+	$(".close").click(function(){
+		$(".content-box").animate({right:'-210px'});
+      });
+
+	$(".quick-menu dl").hover(function() {
+		$(this).addClass("hover");
+	},
+	function() {
+		$(this).removeClass("hover");
+	});
+
+    // 右侧bar用户信息
+    $('div[nctype="a-barUserInfo"]').click(function(){
+        $('div[nctype="barUserInfo"]').toggle();
+    });
+    // 右侧bar登录
+    $('div[nctype="a-barLoginBox"]').click(function(){
+        $('div[nctype="barLoginBox"]').toggle();
+        document.getElementById('codeimage').src=SHOP_SITE_URL+ '/index.php?act=seccode&op=makecode&nchash=&t=' + Math.random();
+    });
+    $('a[nctype="close-barLoginBox"]').click(function(){
+        $('div[nctype="barLoginBox"]').toggle();
+    });
+    });
+</script>
+<div class="public-top-layout w">
+
+  <div class="topbar wrapper">
+    <div  class="partleft">
+      您好，欢迎来到 <a href="http://www.51mkf.com/shop" title="首页" alt="首页">迈客风商城</a> <span></span>
+
+    </div>
+<script src="http://www.51mkf.com/shop/index.php?act=index&op=chain_name"></script>
+
+    <div class="quick-menu">
+      <dl>
+        <dt><a href="http://www.51mkf.com/shop/index.php?act=member_order">我的订单</a><i></i></dt>
+        <dd>
+          <ul>
+            <li><a href="http://www.51mkf.com/shop/index.php?act=member_order&state_type=state_new">待付款订单</a></li>
+            <li><a href="http://www.51mkf.com/shop/index.php?act=member_order&state_type=state_send">待确认收货</a></li>
+            <li><a href="http://www.51mkf.com/shop/index.php?act=member_order&state_type=state_noeval">待评价交易</a></li>
+          </ul>
+        </dd>
+      </dl>
+      <dl>
+        <dt><a href="http://www.51mkf.com/shop/index.php?act=member_favorite_goods&op=fglist">我的收藏</a><i></i></dt>
+        <dd>
+          <ul>
+            <li><a href="http://www.51mkf.com/shop/index.php?act=member_favorite_goods&op=fglist">商品收藏</a></li>
+            <li><a href="http://www.51mkf.com/shop/index.php?act=member_favorite_store&op=fslist">店铺收藏</a></li>
+          </ul>
+        </dd>
+      </dl>
+      <dl>
+        <dt>客户服务<i></i></dt>
+        <dd>
+          <ul>
+            <li><a href="http://www.51mkf.com/member/article-article-ac_id-2.html">帮助中心</a></li>
+            <li><a href="http://www.51mkf.com/member/article-article-ac_id-5.html">售后服务</a></li>
+            <li><a href="http://www.51mkf.com/member/article-article-ac_id-6.html">会员服务</a></li>
+          </ul>
+        </dd>
+      </dl>
+            <dl>
+        <dt>站点导航<i></i></dt>
+        <dd>
+          <ul>
+                        <li><a
+         target="_blank" href="http://www.51mkf.com/shop/?act=seller_login&amp;op=show_login">商家入口</a></li>
+                        <li><a
+         target="_blank" href="http://www.51mkf.com/shop/category.html">网站地图</a></li>
+                      </ul>
+        </dd>
+      </dl>
+              <dl class="">
+            <dt><a href="http://www.51mkf.com/shop/c3BlY2lhbF9kZXRhaWwtMzM=.html" target="_blank">下载APP</a><i></i></dt>
+        </dl>
+
+            <dl class="weixin">
+        <dt>关注我们<i></i></dt>
+        <dd>
+          <h4>扫描二维码<br/>
+            关注商城微信号</h4>
+          <img src="http://www.51mkf.com/data/upload/mobile/05434877284942414.png" > </dd>
+      </dl>
+          </div>
+    <div class="user-entry">
+    <script src="http://www.51mkf.com/shop/index.php?act=index&op=js_login_info"></script>
+
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript" src="http://www.51mkf.com/data/resource/layer/layer.js"></script><!-- PublicHeadLayout Begin -->
+<div class="header-wrap">
+  <header class="public-head-layout wrapper">
+    <h1 class="site-logo"><a href="/"><img src="http://www.51mkf.com/data/upload/shop/common/06050182898013431.png" class="pngFix"></a></h1>
+        <div class="head-app"><span class="pic"></span>
+      <div class="download-app">
+        <div class="qrcode"><img src="http://www.51mkf.com/data/upload/shop/common/mb_app.png" ></div>
+        <div class="hint">
+          <h4>扫描二维码</h4>
+          下载手机客户端</div>
+        <div class="addurl">
+                    <a href="http://www.51mkf.com/app/apk/megaphone.apk" target="_blank"><i class="icon-android"></i>Android</a>
+                              <a href="https://itunes.apple.com/cn/app/%E8%BF%88%E5%AE%A2%E9%A3%8E%E5%95%86%E5%9F%8E/id1249644376?mt=8" target="_blank"  rel="nofollow"><i class="icon-apple"></i>iPhone</a>
+                  </div>
+      </div>
+    </div>
+        <div class="head-search-layout">
+      <div class="head-search-bar" id="head-search-bar">
+<script language=javascript>
+function sclock(){
+	if(keystart>=maxkey){
+		keystart=0;
+	}
+	$("#keyword").attr("placeholder",rkeywords[keystart]);
+	$("#keyword").attr("data-value",rkeyvalue[keystart]);
+  	keystart+=1;
+}
+function hclock(){
+	if(hstart>=maxkey){
+		hstart=0;
+	}
+	var html='<a href="'+rkeyurl[hstart]+'" style="color:#f10215;">'+rkeywords[hstart]+'</a>';
+	$("#redhot").html(html);
+  	hstart+=1;
+}
+</script>
+        <form action="http://www.51mkf.com/shop" method="get" class="search-form" id="top_search_form">
+          <input name="act" id="search_act" value="search" type="hidden">
+          <script>var rkeywords={}
+var rkeyvalue={}
+var rkeyurl={}
+var maxkey=4
+var keystart=0
+var hstart=2
+rkeywords[0]="体感车/电动滑板车"
+rkeyvalue[0]="滑板车"
+rkeyurl[0]="http://www.51mkf.com/shop/index.php?act=search&op=index&keyword=%E6%BB%91%E6%9D%BF%E8%BD%A6"
+rkeywords[1]="文具"
+rkeyvalue[1]="打印纸"
+rkeyurl[1]="http://www.51mkf.com/shop/index.php?act=search&op=index&keyword=%E6%89%93%E5%8D%B0%E7%BA%B8"
+rkeywords[2]="华为nova3"
+rkeyvalue[2]="华为 HUAWEI nova 3"
+rkeyurl[2]="http://www.51mkf.com/shop/index.php?act=search&op=index&keyword=%E5%8D%8E%E4%B8%BA+HUAWEI+nova+3"
+rkeywords[3]="电脑"
+rkeyvalue[3]="笔记本电脑"
+rkeyurl[3]="http://www.51mkf.com/shop/index.php?act=search&op=index&keyword=%E7%AC%94%E8%AE%B0%E6%9C%AC%E7%94%B5%E8%84%91"
+$(function(){
+var int=self.setInterval("sclock()",6000)
+hclock();
+var int=self.setInterval("hclock()",4000)
+});</script>          <input name="keyword" id="keyword" type="text" class="input-text" value="" maxlength="60" x-webkit-speech lang="zh-CN" onwebkitspeechchange="foo()" placeholder="电脑" data-value="%E7%AC%94%E8%AE%B0%E6%9C%AC%E7%94%B5%E8%84%91" x-webkit-grammar="builtin:search" autocomplete="off" />
+          <input type="submit" id="button" value="搜索" class="input-submit">
+        </form>
+        <div class="search-tip" id="search-tip">
+          <div class="search-history">
+            <div class="title">历史记录<a href="javascript:void(0);" id="search-his-del">清除</a></div>
+            <ul id="search-his-list">
+                          </ul>
+          </div>
+          <div class="search-hot">
+            <div class="title">热门搜索...</div>
+            <ul>
+
+                            <li><a href="http://www.51mkf.com/shop/index.php?act=search&op=index&keyword=%E6%BB%91%E6%9D%BF%E8%BD%A6">滑板车</a></li>
+                            <li><a href="http://www.51mkf.com/shop/index.php?act=search&op=index&keyword=%E6%89%93%E5%8D%B0%E7%BA%B8">打印纸</a></li>
+                            <li><a href="http://www.51mkf.com/shop/index.php?act=search&op=index&keyword=%E5%8D%8E%E4%B8%BA+HUAWEI+nova+3">华为 HUAWEI nova 3</a></li>
+                            <li><a href="http://www.51mkf.com/shop/index.php?act=search&op=index&keyword=%E7%AC%94%E8%AE%B0%E6%9C%AC%E7%94%B5%E8%84%91">笔记本电脑</a></li>
+                                        </ul>
+          </div>
+        </div>
+      </div>
+      <div class="keyword">
+        <ul>
+          <li id="redhot"></li>
+
+          <li><a href="http://www.51mkf.com/shop/index.php?act=search&op=index&keyword=%E7%94%B5%E8%84%91">电脑</a></li>
+
+          <li><a href="http://www.51mkf.com/shop/index.php?act=search&op=index&keyword=%E6%B4%97%E8%A1%A3%E6%B6%B2">洗衣液</a></li>
+
+          <li><a href="http://www.51mkf.com/shop/index.php?act=search&op=index&keyword=%E5%90%B9%E9%A3%8E%E6%9C%BA">吹风机</a></li>
+
+          <li><a href="http://www.51mkf.com/shop/index.php?act=search&op=index&keyword=%E6%B1%BD%E8%BD%A6%E9%A6%99%E6%B0%B4">汽车香水</a></li>
+
+          <li><a href="http://www.51mkf.com/shop/index.php?act=search&op=index&keyword=%E6%89%8B%E7%8E%AF">手环</a></li>
+
+          <li><a href="http://www.51mkf.com/shop/index.php?act=search&op=index&keyword=%E7%A7%BB%E5%8A%A8%E7%94%B5%E6%BA%90">移动电源</a></li>
+
+          <li><a href="http://www.51mkf.com/shop/index.php?act=search&op=index&keyword=%E6%89%93%E5%8D%B0%E7%BA%B8">打印纸</a></li>
+
+          <li><a href="http://www.51mkf.com/shop/index.php?act=search&op=index&keyword=%E5%84%BF%E7%AB%A5%E6%89%8B%E8%A1%A8">儿童手表</a></li>
+                  </ul>
+      </div>
+    </div>
+    <div class="head-user-menu">
+      <dl class="my-mall">
+        <dt><span class="ico"></span>我的商城<i class="arrow"></i></dt>
+        <dd>
+          <div class="sub-title">
+            <h4>                          </h4>
+            <a href="http://www.51mkf.com/shop/index.php?act=member&op=home" class="arrow">我的用户中心<i></i></a></div>
+          <div class="user-centent-menu">
+            <ul>
+              <li><a href="http://www.51mkf.com/member/index.php?act=member_message&op=message">站内消息(<span>0</span>)</a></li>
+              <li><a href="http://www.51mkf.com/shop/index.php?act=member_order" class="arrow">我的订单<i></i></a></li>
+              <li><a href="http://www.51mkf.com/shop/index.php?act=member_consult&op=my_consult">咨询回复(<span id="member_consult">0</span>)</a></li>
+              <li><a href="http://www.51mkf.com/shop/index.php?act=member_favorite_goods&op=fglist" class="arrow">我的收藏<i></i></a></li>
+                            <li><a href="http://www.51mkf.com/member/index.php?act=member_voucher">代金券(<span id="member_voucher">0</span>)</a></li>
+                                          <li><a href="http://www.51mkf.com/member/index.php?act=member_points" class="arrow">我的积分<i></i></a></li>
+                          </ul>
+          </div>
+          <div class="browse-history">
+            <div class="part-title">
+              <h4>最近浏览的商品</h4>
+              <span style="float:right;"><a href="http://www.51mkf.com/shop/index.php?act=member_goodsbrowse&op=list">全部浏览历史</a></span> </div>
+            <ul>
+              <li class="no-goods"><img class="loading" src="http://www.51mkf.com/shop/templates/default/images/loading.gif" /></li>
+            </ul>
+          </div>
+        </dd>
+      </dl>
+      <dl class="my-cart">
+                <dt><span class="ico"></span>购物车结算<i class="arrow"></i></dt>
+        <dd>
+          <div class="sub-title">
+            <h4>最新加入的商品</h4>
+          </div>
+          <div class="incart-goods-box">
+            <div class="incart-goods"> <img class="loading" src="http://www.51mkf.com/shop/templates/default/images/loading.gif" /> </div>
+          </div>
+          <div class="checkout"> <span class="total-price">共<i>0</i>种商品</span><a href="http://www.51mkf.com/shop/index.php?act=cart" class="btn-cart">结算购物车中的商品</a> </div>
+        </dd>
+      </dl>
+    </div>
+  </header>
+</div>
+<!-- PublicHeadLayout End -->
+
+<!-- publicNavLayout Begin -->
+<nav class="public-nav-layout ">
+  <div class="wrapper">
+    <div class="all-category">
+
+<div class="title"><i></i>
+  <h3><a href="http://www.51mkf.com/shop/category.html">全部分类</a></h3>
+</div>
+<div class="category">
+  <ul class="menu">
+                    <li cat_id="256" class="odd" >
+      <div class="class"><span class="arrow"></span>
+        <span class="ico"></span>
+        <h4><a href="http://www.51mkf.com/shop/cate-256-0-0-0-0-0-0-0-0-0.html">手机 / 配件</a></h4>
+
+       <div class="menu_list" >
+           <span><a href="http://www.51mkf.com/shop/cate-1034-0-0-0-0-0-0-0-0-0.html">手机通讯</a></span>
+           <span><a href="http://www.51mkf.com/shop/cate-1367-0-0-0-0-0-0-0-0-0.html">手机配件</a></span>
+                    </div>
+         </div>
+      <div class="sub-class" cat_menu_id="256">
+        <div class="sub-class-content">
+          <div class="recommend-class">
+                                    <span><a href="http://www.51mkf.com/shop/cate-1035-0-0-0-0-0-0-0-0-0.html" title="手机">手机</a></span>
+                                  </div>
+                              <dl>
+            <dt>
+              <h3><a href="http://www.51mkf.com/shop/cate-1034-0-0-0-0-0-0-0-0-0.html">手机通讯</a></h3>
+            </dt>
+            <dd class="goods-class">
+                                          <a href="http://www.51mkf.com/shop/cate-1035-0-0-0-0-0-0-0-0-0.html" class="hot_class">手机</a>
+                            <a href="http://www.51mkf.com/shop/cate-1375-0-0-0-0-0-0-0-0-0.html" class="">以旧换新</a>
+                                        </dd>
+          </dl>
+                    <dl>
+            <dt>
+              <h3><a href="http://www.51mkf.com/shop/cate-1367-0-0-0-0-0-0-0-0-0.html">手机配件</a></h3>
+            </dt>
+            <dd class="goods-class">
+                            <a href="http://www.51mkf.com/shop/cate-1465-0-0-0-0-0-0-0-0-0.html" class="">手机贴膜</a>
+                            <a href="http://www.51mkf.com/shop/cate-1368-0-0-0-0-0-0-0-0-0.html" class="hot_class">移动电源</a>
+                            <a href="http://www.51mkf.com/shop/cate-1369-0-0-0-0-0-0-0-0-0.html" class="hot_class">耳机</a>
+                            <a href="http://www.51mkf.com/shop/cate-1370-0-0-0-0-0-0-0-0-0.html" class="hot_class">数据线</a>
+                            <a href="http://www.51mkf.com/shop/cate-1380-0-0-0-0-0-0-0-0-0.html" class="">充电器</a>
+                            <a href="http://www.51mkf.com/shop/cate-1390-0-0-0-0-0-0-0-0-0.html" class="">拍照配件</a>
+                            <a href="http://www.51mkf.com/shop/cate-1383-0-0-0-0-0-0-0-0-0.html" class="">保护壳</a>
+                            <a href="http://www.51mkf.com/shop/cate-1386-0-0-0-0-0-0-0-0-0.html" class="">懒人支架</a>
+                            <a href="http://www.51mkf.com/shop/cate-1387-0-0-0-0-0-0-0-0-0.html" class="">麦克风</a>
+                            <a href="http://www.51mkf.com/shop/cate-1388-0-0-0-0-0-0-0-0-0.html" class="">其他</a>
+                                        </dd>
+          </dl>
+
+                            </div>
+
+      </div>
+
+
+    </li>
+
+                <li cat_id="1230" class="even" >
+      <div class="class"><span class="arrow"></span>
+        <span class="ico"></span>
+        <h4><a href="http://www.51mkf.com/shop/cate-1230-0-0-0-0-0-0-0-0-0.html">电脑办公</a></h4>
+
+       <div class="menu_list" >
+                      <span><a href="http://www.51mkf.com/shop/cate-1413-0-0-0-0-0-0-0-0-0.html">外设产品</a></span>
+            <span><a href="http://www.51mkf.com/shop/cate-1442-0-0-0-0-0-0-0-0-0.html">游戏设备</a></span>
+            <span><a href="http://www.51mkf.com/shop/cate-1232-0-0-0-0-0-0-0-0-0.html">电脑整机</a></span>
+            <span><a href="http://www.51mkf.com/shop/cate-1234-0-0-0-0-0-0-0-0-0.html">办公设备</a></span>
+            <span><a href="http://www.51mkf.com/shop/cate-1235-0-0-0-0-0-0-0-0-0.html">文具耗材</a></span>
+            <span><a href="http://www.51mkf.com/shop/cate-1233-0-0-0-0-0-0-0-0-0.html">电脑配件</a></span>
+            <span><a href="http://www.51mkf.com/shop/cate-1282-0-0-0-0-0-0-0-0-0.html">网络产品</a></span>
+                    </div>
+         </div>
+      <div class="sub-class" cat_menu_id="1230">
+        <div class="sub-class-content">
+          <div class="recommend-class">
+                                    <span><a href="http://www.51mkf.com/shop/cate-1245-0-0-0-0-0-0-0-0-0.html" title="笔记本电脑">笔记本电脑</a></span>
+                        <span><a href="http://www.51mkf.com/shop/cate-1247-0-0-0-0-0-0-0-0-0.html" title="平板电脑">平板电脑</a></span>
+                        <span><a href="http://www.51mkf.com/shop/cate-1246-0-0-0-0-0-0-0-0-0.html" title="台式机电脑">台式机电脑</a></span>
+                        <span><a href="http://www.51mkf.com/shop/cate-1248-0-0-0-0-0-0-0-0-0.html" title="一体机电脑">一体机电脑</a></span>
+                        <span><a href="http://www.51mkf.com/shop/cate-1382-0-0-0-0-0-0-0-0-0.html" title="鼠标">鼠标</a></span>
+                        <span><a href="http://www.51mkf.com/shop/cate-1277-0-0-0-0-0-0-0-0-0.html" title="投影仪">投影仪</a></span>
+                        <span><a href="http://www.51mkf.com/shop/cate-1278-0-0-0-0-0-0-0-0-0.html" title="打印机">打印机</a></span>
+                        <span><a href="http://www.51mkf.com/shop/cate-1240-0-0-0-0-0-0-0-0-0.html" title="计算器">计算器</a></span>
+                        <span><a href="http://www.51mkf.com/shop/cate-1242-0-0-0-0-0-0-0-0-0.html" title="办公文具">办公文具</a></span>
+                                  </div>
+                              <dl>
+            <dt>
+              <h3><a href="http://www.51mkf.com/shop/cate-1413-0-0-0-0-0-0-0-0-0.html">外设产品</a></h3>
+            </dt>
+            <dd class="goods-class">
+                                          <a href="http://www.51mkf.com/shop/cate-1414-0-0-0-0-0-0-0-0-0.html" class="">网络机柜</a>
+                            <a href="http://www.51mkf.com/shop/cate-1415-0-0-0-0-0-0-0-0-0.html" class="">线缆</a>
+                            <a href="http://www.51mkf.com/shop/cate-1462-0-0-0-0-0-0-0-0-0.html" class="">U盘</a>
+                            <a href="http://www.51mkf.com/shop/cate-1502-0-0-0-0-0-0-0-0-0.html" class="">移动硬盘</a>
+                            <a href="http://www.51mkf.com/shop/cate-1509-0-0-0-0-0-0-0-0-0.html" class="">鼠标垫</a>
+                            <a href="http://www.51mkf.com/shop/cate-1512-0-0-0-0-0-0-0-0-0.html" class="">摄像头</a>
+                                        </dd>
+          </dl>
+                    <dl>
+            <dt>
+              <h3><a href="http://www.51mkf.com/shop/cate-1442-0-0-0-0-0-0-0-0-0.html">游戏设备</a></h3>
+            </dt>
+            <dd class="goods-class">
+                                          <a href="http://www.51mkf.com/shop/cate-1443-0-0-0-0-0-0-0-0-0.html" class="">游戏耳机</a>
+                            <a href="http://www.51mkf.com/shop/cate-1484-0-0-0-0-0-0-0-0-0.html" class="">手柄/方向盘</a>
+                                        </dd>
+          </dl>
+                    <dl>
+            <dt>
+              <h3><a href="http://www.51mkf.com/shop/cate-1232-0-0-0-0-0-0-0-0-0.html">电脑整机</a></h3>
+            </dt>
+            <dd class="goods-class">
+                                          <a href="http://www.51mkf.com/shop/cate-1532-0-0-0-0-0-0-0-0-0.html" class="">平板电脑配件</a>
+                            <a href="http://www.51mkf.com/shop/cate-1536-0-0-0-0-0-0-0-0-0.html" class="">笔记本配件</a>
+                            <a href="http://www.51mkf.com/shop/cate-1245-0-0-0-0-0-0-0-0-0.html" class="hot_class">笔记本电脑</a>
+                            <a href="http://www.51mkf.com/shop/cate-1247-0-0-0-0-0-0-0-0-0.html" class="hot_class">平板电脑</a>
+                            <a href="http://www.51mkf.com/shop/cate-1246-0-0-0-0-0-0-0-0-0.html" class="hot_class">台式机电脑</a>
+                            <a href="http://www.51mkf.com/shop/cate-1248-0-0-0-0-0-0-0-0-0.html" class="hot_class">一体机电脑</a>
+                                        </dd>
+          </dl>
+                    <dl>
+            <dt>
+              <h3><a href="http://www.51mkf.com/shop/cate-1234-0-0-0-0-0-0-0-0-0.html">办公设备</a></h3>
+            </dt>
+            <dd class="goods-class">
+                                          <a href="http://www.51mkf.com/shop/cate-1412-0-0-0-0-0-0-0-0-0.html" class="">扫描设备</a>
+                            <a href="http://www.51mkf.com/shop/cate-1448-0-0-0-0-0-0-0-0-0.html" class="">投影配件</a>
+                            <a href="http://www.51mkf.com/shop/cate-1533-0-0-0-0-0-0-0-0-0.html" class="">多功能一体机</a>
+                            <a href="http://www.51mkf.com/shop/cate-1534-0-0-0-0-0-0-0-0-0.html" class="">收银机</a>
+                            <a href="http://www.51mkf.com/shop/cate-1535-0-0-0-0-0-0-0-0-0.html" class="">白板</a>
+                            <a href="http://www.51mkf.com/shop/cate-1277-0-0-0-0-0-0-0-0-0.html" class="hot_class">投影仪</a>
+                            <a href="http://www.51mkf.com/shop/cate-1278-0-0-0-0-0-0-0-0-0.html" class="hot_class">打印机</a>
+                            <a href="http://www.51mkf.com/shop/cate-1279-0-0-0-0-0-0-0-0-0.html" class="">验钞机</a>
+                            <a href="http://www.51mkf.com/shop/cate-1280-0-0-0-0-0-0-0-0-0.html" class="">保险柜</a>
+                            <a href="http://www.51mkf.com/shop/cate-1281-0-0-0-0-0-0-0-0-0.html" class="">考勤机</a>
+                                        </dd>
+          </dl>
+                    <dl>
+            <dt>
+              <h3><a href="http://www.51mkf.com/shop/cate-1235-0-0-0-0-0-0-0-0-0.html">文具耗材</a></h3>
+            </dt>
+            <dd class="goods-class">
+                                          <a href="http://www.51mkf.com/shop/cate-1457-0-0-0-0-0-0-0-0-0.html" class="">笔类</a>
+                            <a href="http://www.51mkf.com/shop/cate-1461-0-0-0-0-0-0-0-0-0.html" class="">本册/便签</a>
+                            <a href="http://www.51mkf.com/shop/cate-1522-0-0-0-0-0-0-0-0-0.html" class="">文件管理</a>
+                            <a href="http://www.51mkf.com/shop/cate-1236-0-0-0-0-0-0-0-0-0.html" class="">硒鼓/墨粉</a>
+                            <a href="http://www.51mkf.com/shop/cate-1237-0-0-0-0-0-0-0-0-0.html" class="">墨盒</a>
+                            <a href="http://www.51mkf.com/shop/cate-1238-0-0-0-0-0-0-0-0-0.html" class="">纸类</a>
+                            <a href="http://www.51mkf.com/shop/cate-1240-0-0-0-0-0-0-0-0-0.html" class="">计算器</a>
+                            <a href="http://www.51mkf.com/shop/cate-1242-0-0-0-0-0-0-0-0-0.html" class="">办公文具</a>
+                            <a href="http://www.51mkf.com/shop/cate-1239-0-0-0-0-0-0-0-0-0.html" class="">学生文具</a>
+                            <a href="http://www.51mkf.com/shop/cate-1241-0-0-0-0-0-0-0-0-0.html" class="">财会用品</a>
+                                        </dd>
+          </dl>
+                    <dl>
+            <dt>
+              <h3><a href="http://www.51mkf.com/shop/cate-1233-0-0-0-0-0-0-0-0-0.html">电脑配件</a></h3>
+            </dt>
+            <dd class="goods-class">
+                                          <a href="http://www.51mkf.com/shop/cate-1381-0-0-0-0-0-0-0-0-0.html" class="">键盘</a>
+                            <a href="http://www.51mkf.com/shop/cate-1382-0-0-0-0-0-0-0-0-0.html" class="hot_class">鼠标</a>
+                            <a href="http://www.51mkf.com/shop/cate-1411-0-0-0-0-0-0-0-0-0.html" class="">清洁用品</a>
+                            <a href="http://www.51mkf.com/shop/cate-1444-0-0-0-0-0-0-0-0-0.html" class="">CPU</a>
+                            <a href="http://www.51mkf.com/shop/cate-1445-0-0-0-0-0-0-0-0-0.html" class="">主板</a>
+                            <a href="http://www.51mkf.com/shop/cate-1447-0-0-0-0-0-0-0-0-0.html" class="">显示器</a>
+                            <a href="http://www.51mkf.com/shop/cate-1453-0-0-0-0-0-0-0-0-0.html" class="">显卡</a>
+                            <a href="http://www.51mkf.com/shop/cate-1494-0-0-0-0-0-0-0-0-0.html" class="">机箱</a>
+                            <a href="http://www.51mkf.com/shop/cate-1497-0-0-0-0-0-0-0-0-0.html" class="">硬盘</a>
+                            <a href="http://www.51mkf.com/shop/cate-1500-0-0-0-0-0-0-0-0-0.html" class="">电源</a>
+                            <a href="http://www.51mkf.com/shop/cate-1398-0-0-0-0-0-0-0-0-0.html" class="">键鼠套装</a>
+                                        </dd>
+          </dl>
+                    <dl>
+            <dt>
+              <h3><a href="http://www.51mkf.com/shop/cate-1282-0-0-0-0-0-0-0-0-0.html">网络产品</a></h3>
+            </dt>
+            <dd class="goods-class">
+                                          <a href="http://www.51mkf.com/shop/cate-1283-0-0-0-0-0-0-0-0-0.html" class="hot_class">路由器</a>
+                            <a href="http://www.51mkf.com/shop/cate-1284-0-0-0-0-0-0-0-0-0.html" class="">机顶盒</a>
+                            <a href="http://www.51mkf.com/shop/cate-1285-0-0-0-0-0-0-0-0-0.html" class="">网络存储</a>
+                                        </dd>
+          </dl>
+                            </div>
+
+      </div>
+
+
+    </li>
+
+                <li cat_id="308" class="odd" >
+      <div class="class"><span class="arrow"></span>
+        <span class="ico"></span>
+        <h4><a href="http://www.51mkf.com/shop/cate-308-0-0-0-0-0-0-0-0-0.html">智能家电</a></h4>
+
+       <div class="menu_list" >
+                      <span><a href="http://www.51mkf.com/shop/cate-1449-0-0-0-0-0-0-0-0-0.html">大家电</a></span>
+            <span><a href="http://www.51mkf.com/shop/cate-310-0-0-0-0-0-0-0-0-0.html">生活电器</a></span>
+            <span><a href="http://www.51mkf.com/shop/cate-311-0-0-0-0-0-0-0-0-0.html">厨房电器</a></span>
+            <span><a href="http://www.51mkf.com/shop/cate-1351-0-0-0-0-0-0-0-0-0.html">智能设备</a></span>
+                    </div>
+         </div>
+      <div class="sub-class" cat_menu_id="308">
+        <div class="sub-class-content">
+          <div class="recommend-class">
+                                    <span><a href="http://www.51mkf.com/shop/cate-326-0-0-0-0-0-0-0-0-0.html" title="饮水机">饮水机</a></span>
+                        <span><a href="http://www.51mkf.com/shop/cate-327-0-0-0-0-0-0-0-0-0.html" title="电吹风">电吹风</a></span>
+                        <span><a href="http://www.51mkf.com/shop/cate-329-0-0-0-0-0-0-0-0-0.html" title="加湿器">加湿器</a></span>
+                                  </div>
+                              <dl>
+            <dt>
+              <h3><a href="http://www.51mkf.com/shop/cate-1449-0-0-0-0-0-0-0-0-0.html">大家电</a></h3>
+            </dt>
+            <dd class="goods-class">
+                                          <a href="http://www.51mkf.com/shop/cate-1450-0-0-0-0-0-0-0-0-0.html" class="">空调</a>
+                            <a href="http://www.51mkf.com/shop/cate-1454-0-0-0-0-0-0-0-0-0.html" class="">冰箱</a>
+                            <a href="http://www.51mkf.com/shop/cate-1455-0-0-0-0-0-0-0-0-0.html" class="">电视</a>
+                            <a href="http://www.51mkf.com/shop/cate-1466-0-0-0-0-0-0-0-0-0.html" class="">洗衣机</a>
+                                        </dd>
+          </dl>
+                    <dl>
+            <dt>
+              <h3><a href="http://www.51mkf.com/shop/cate-310-0-0-0-0-0-0-0-0-0.html">生活电器</a></h3>
+            </dt>
+            <dd class="goods-class">
+                                          <a href="http://www.51mkf.com/shop/cate-1460-0-0-0-0-0-0-0-0-0.html" class="">电话机</a>
+                            <a href="http://www.51mkf.com/shop/cate-1486-0-0-0-0-0-0-0-0-0.html" class="">卷/直发器</a>
+                            <a href="http://www.51mkf.com/shop/cate-1151-0-0-0-0-0-0-0-0-0.html" class="">电风扇</a>
+                            <a href="http://www.51mkf.com/shop/cate-1456-0-0-0-0-0-0-0-0-0.html" class="">冷风扇</a>
+                            <a href="http://www.51mkf.com/shop/cate-1162-0-0-0-0-0-0-0-0-0.html" class="">料理机/榨汁机</a>
+                            <a href="http://www.51mkf.com/shop/cate-1163-0-0-0-0-0-0-0-0-0.html" class="">电水壶/热水壶</a>
+                            <a href="http://www.51mkf.com/shop/cate-1149-0-0-0-0-0-0-0-0-0.html" class="">台灯</a>
+                            <a href="http://www.51mkf.com/shop/cate-1225-0-0-0-0-0-0-0-0-0.html" class="">吸尘器/除螨仪</a>
+                            <a href="http://www.51mkf.com/shop/cate-326-0-0-0-0-0-0-0-0-0.html" class="">饮水机</a>
+                            <a href="http://www.51mkf.com/shop/cate-327-0-0-0-0-0-0-0-0-0.html" class="">电吹风</a>
+                            <a href="http://www.51mkf.com/shop/cate-329-0-0-0-0-0-0-0-0-0.html" class="">加湿器</a>
+                            <a href="http://www.51mkf.com/shop/cate-333-0-0-0-0-0-0-0-0-0.html" class="">挂烫机/熨斗</a>
+                            <a href="http://www.51mkf.com/shop/cate-334-0-0-0-0-0-0-0-0-0.html" class="">剃须刀</a>
+                            <a href="http://www.51mkf.com/shop/cate-335-0-0-0-0-0-0-0-0-0.html" class="">插座</a>
+                            <a href="http://www.51mkf.com/shop/cate-337-0-0-0-0-0-0-0-0-0.html" class="">除湿/干衣机</a>
+                            <a href="http://www.51mkf.com/shop/cate-340-0-0-0-0-0-0-0-0-0.html" class="">其它生活电器</a>
+                            <a href="http://www.51mkf.com/shop/cate-1537-0-0-0-0-0-0-0-0-0.html" class="">空气净化器</a>
+                                        </dd>
+          </dl>
+                    <dl>
+            <dt>
+              <h3><a href="http://www.51mkf.com/shop/cate-311-0-0-0-0-0-0-0-0-0.html">厨房电器</a></h3>
+            </dt>
+            <dd class="goods-class">
+                                          <a href="http://www.51mkf.com/shop/cate-1150-0-0-0-0-0-0-0-0-0.html" class="">滤水壶</a>
+                            <a href="http://www.51mkf.com/shop/cate-1425-0-0-0-0-0-0-0-0-0.html" class="">养生壶</a>
+                            <a href="http://www.51mkf.com/shop/cate-1488-0-0-0-0-0-0-0-0-0.html" class="">微波炉</a>
+                            <a href="http://www.51mkf.com/shop/cate-1489-0-0-0-0-0-0-0-0-0.html" class="">咖啡机</a>
+                            <a href="http://www.51mkf.com/shop/cate-1490-0-0-0-0-0-0-0-0-0.html" class="">面包机</a>
+                            <a href="http://www.51mkf.com/shop/cate-342-0-0-0-0-0-0-0-0-0.html" class="">豆浆机</a>
+                            <a href="http://www.51mkf.com/shop/cate-343-0-0-0-0-0-0-0-0-0.html" class="">电饭煲</a>
+                            <a href="http://www.51mkf.com/shop/cate-348-0-0-0-0-0-0-0-0-0.html" class="">电烤箱</a>
+                            <a href="http://www.51mkf.com/shop/cate-349-0-0-0-0-0-0-0-0-0.html" class="">电磁炉</a>
+                            <a href="http://www.51mkf.com/shop/cate-350-0-0-0-0-0-0-0-0-0.html" class="">电饼铛</a>
+                            <a href="http://www.51mkf.com/shop/cate-353-0-0-0-0-0-0-0-0-0.html" class="">电炖锅</a>
+                            <a href="http://www.51mkf.com/shop/cate-355-0-0-0-0-0-0-0-0-0.html" class="">多用途锅</a>
+                            <a href="http://www.51mkf.com/shop/cate-1496-0-0-0-0-0-0-0-0-0.html" class="">其他</a>
+                                        </dd>
+          </dl>
+                    <dl>
+            <dt>
+              <h3><a href="http://www.51mkf.com/shop/cate-1351-0-0-0-0-0-0-0-0-0.html">智能设备</a></h3>
+            </dt>
+            <dd class="goods-class">
+                                          <a href="http://www.51mkf.com/shop/cate-1391-0-0-0-0-0-0-0-0-0.html" class="">智能手表</a>
+                            <a href="http://www.51mkf.com/shop/cate-1424-0-0-0-0-0-0-0-0-0.html" class="">摄影摄像</a>
+                            <a href="http://www.51mkf.com/shop/cate-1540-0-0-0-0-0-0-0-0-0.html" class="">电子锁</a>
+                            <a href="http://www.51mkf.com/shop/cate-1352-0-0-0-0-0-0-0-0-0.html" class="">智能手环</a>
+                            <a href="http://www.51mkf.com/shop/cate-1354-0-0-0-0-0-0-0-0-0.html" class="">智能音响</a>
+                            <a href="http://www.51mkf.com/shop/cate-1359-0-0-0-0-0-0-0-0-0.html" class="">智能机器人</a>
+                            <a href="http://www.51mkf.com/shop/cate-1357-0-0-0-0-0-0-0-0-0.html" class="">扫地机器人</a>
+                            <a href="http://www.51mkf.com/shop/cate-1355-0-0-0-0-0-0-0-0-0.html" class="">体感车/电动滑板车</a>
+                            <a href="http://www.51mkf.com/shop/cate-1353-0-0-0-0-0-0-0-0-0.html" class="">无人机</a>
+                            <a href="http://www.51mkf.com/shop/cate-1356-0-0-0-0-0-0-0-0-0.html" class="">VR头盔</a>
+                            <a href="http://www.51mkf.com/shop/cate-1363-0-0-0-0-0-0-0-0-0.html" class="">健康监测</a>
+                            <a href="http://www.51mkf.com/shop/cate-1395-0-0-0-0-0-0-0-0-0.html" class="">电纸书</a>
+                            <a href="http://www.51mkf.com/shop/cate-1396-0-0-0-0-0-0-0-0-0.html" class="">摄像头</a>
+                            <a href="http://www.51mkf.com/shop/cate-1365-0-0-0-0-0-0-0-0-0.html" class="">其他</a>
+                                        </dd>
+          </dl>
+                            </div>
+
+      </div>
+
+
+    </li>
+
+                <li cat_id="1184" class="even" >
+      <div class="class"><span class="arrow"></span>
+        <span class="ico"></span>
+        <h4><a href="http://www.51mkf.com/shop/cate-1184-0-0-0-0-0-0-0-0-0.html">洗护美妆</a></h4>
+
+       <div class="menu_list" >
+                      <span><a href="http://www.51mkf.com/shop/cate-1513-0-0-0-0-0-0-0-0-0.html">美妆工具</a></span>
+            <span><a href="http://www.51mkf.com/shop/cate-1214-0-0-0-0-0-0-0-0-0.html">面部护肤</a></span>
+            <span><a href="http://www.51mkf.com/shop/cate-1198-0-0-0-0-0-0-0-0-0.html">洗发护发</a></span>
+            <span><a href="http://www.51mkf.com/shop/cate-1199-0-0-0-0-0-0-0-0-0.html">身体护理</a></span>
+            <span><a href="http://www.51mkf.com/shop/cate-1211-0-0-0-0-0-0-0-0-0.html">口腔护理</a></span>
+            <span><a href="http://www.51mkf.com/shop/cate-1221-0-0-0-0-0-0-0-0-0.html">女性护理</a></span>
+            <span><a href="http://www.51mkf.com/shop/cate-1227-0-0-0-0-0-0-0-0-0.html">香水/彩妆</a></span>
+                    </div>
+         </div>
+      <div class="sub-class" cat_menu_id="1184">
+        <div class="sub-class-content">
+          <div class="recommend-class">
+                                    <span><a href="http://www.51mkf.com/shop/cate-1204-0-0-0-0-0-0-0-0-0.html" title="洗发">洗发</a></span>
+                        <span><a href="http://www.51mkf.com/shop/cate-1207-0-0-0-0-0-0-0-0-0.html" title="沐浴">沐浴</a></span>
+                        <span><a href="http://www.51mkf.com/shop/cate-1212-0-0-0-0-0-0-0-0-0.html" title="牙膏">牙膏</a></span>
+                        <span><a href="http://www.51mkf.com/shop/cate-1218-0-0-0-0-0-0-0-0-0.html" title="面膜">面膜</a></span>
+                        <span><a href="http://www.51mkf.com/shop/cate-1215-0-0-0-0-0-0-0-0-0.html" title="洁面">洁面</a></span>
+                        <span><a href="http://www.51mkf.com/shop/cate-1228-0-0-0-0-0-0-0-0-0.html" title="香水">香水</a></span>
+                                  </div>
+                              <dl>
+            <dt>
+              <h3><a href="http://www.51mkf.com/shop/cate-1513-0-0-0-0-0-0-0-0-0.html">美妆工具</a></h3>
+            </dt>
+            <dd class="goods-class">
+                                          <a href="http://www.51mkf.com/shop/cate-1514-0-0-0-0-0-0-0-0-0.html" class="">洁面仪</a>
+                            <a href="http://www.51mkf.com/shop/cate-1515-0-0-0-0-0-0-0-0-0.html" class="">一次性用品</a>
+                            <a href="http://www.51mkf.com/shop/cate-1516-0-0-0-0-0-0-0-0-0.html" class="">化妆镜</a>
+                            <a href="http://www.51mkf.com/shop/cate-1518-0-0-0-0-0-0-0-0-0.html" class="">美妆工具套装</a>
+                            <a href="http://www.51mkf.com/shop/cate-1520-0-0-0-0-0-0-0-0-0.html" class="">化妆刷</a>
+                            <a href="http://www.51mkf.com/shop/cate-1523-0-0-0-0-0-0-0-0-0.html" class="">粉扑/洗脸扑</a>
+                            <a href="http://www.51mkf.com/shop/cate-1524-0-0-0-0-0-0-0-0-0.html" class="">睫毛夹</a>
+                            <a href="http://www.51mkf.com/shop/cate-1525-0-0-0-0-0-0-0-0-0.html" class="">美容仪</a>
+                            <a href="http://www.51mkf.com/shop/cate-1530-0-0-0-0-0-0-0-0-0.html" class="">化妆包</a>
+                                        </dd>
+          </dl>
+                    <dl>
+            <dt>
+              <h3><a href="http://www.51mkf.com/shop/cate-1214-0-0-0-0-0-0-0-0-0.html">面部护肤</a></h3>
+            </dt>
+            <dd class="goods-class">
+                                          <a href="http://www.51mkf.com/shop/cate-1492-0-0-0-0-0-0-0-0-0.html" class="">化妆棉</a>
+                            <a href="http://www.51mkf.com/shop/cate-1528-0-0-0-0-0-0-0-0-0.html" class="">眼膜</a>
+                            <a href="http://www.51mkf.com/shop/cate-1538-0-0-0-0-0-0-0-0-0.html" class="">其它面部护肤</a>
+                            <a href="http://www.51mkf.com/shop/cate-1287-0-0-0-0-0-0-0-0-0.html" class="">卸妆</a>
+                            <a href="http://www.51mkf.com/shop/cate-1289-0-0-0-0-0-0-0-0-0.html" class="">防晒</a>
+                            <a href="http://www.51mkf.com/shop/cate-1218-0-0-0-0-0-0-0-0-0.html" class="hot_class">面膜</a>
+                            <a href="http://www.51mkf.com/shop/cate-1215-0-0-0-0-0-0-0-0-0.html" class="hot_class">洁面</a>
+                            <a href="http://www.51mkf.com/shop/cate-1216-0-0-0-0-0-0-0-0-0.html" class="">面霜</a>
+                            <a href="http://www.51mkf.com/shop/cate-1217-0-0-0-0-0-0-0-0-0.html" class="">爽肤水</a>
+                            <a href="http://www.51mkf.com/shop/cate-1219-0-0-0-0-0-0-0-0-0.html" class="">套装</a>
+                            <a href="http://www.51mkf.com/shop/cate-1253-0-0-0-0-0-0-0-0-0.html" class="">眼霜</a>
+                            <a href="http://www.51mkf.com/shop/cate-1392-0-0-0-0-0-0-0-0-0.html" class="">精华</a>
+                                        </dd>
+          </dl>
+                    <dl>
+            <dt>
+              <h3><a href="http://www.51mkf.com/shop/cate-1198-0-0-0-0-0-0-0-0-0.html">洗发护发</a></h3>
+            </dt>
+            <dd class="goods-class">
+                                          <a href="http://www.51mkf.com/shop/cate-1529-0-0-0-0-0-0-0-0-0.html" class="">染发</a>
+                            <a href="http://www.51mkf.com/shop/cate-1204-0-0-0-0-0-0-0-0-0.html" class="hot_class">洗发</a>
+                            <a href="http://www.51mkf.com/shop/cate-1205-0-0-0-0-0-0-0-0-0.html" class="">护发</a>
+                            <a href="http://www.51mkf.com/shop/cate-1290-0-0-0-0-0-0-0-0-0.html" class="">造型</a>
+                            <a href="http://www.51mkf.com/shop/cate-1206-0-0-0-0-0-0-0-0-0.html" class="">套装</a>
+                                        </dd>
+          </dl>
+                    <dl>
+            <dt>
+              <h3><a href="http://www.51mkf.com/shop/cate-1199-0-0-0-0-0-0-0-0-0.html">身体护理</a></h3>
+            </dt>
+            <dd class="goods-class">
+                                          <a href="http://www.51mkf.com/shop/cate-1394-0-0-0-0-0-0-0-0-0.html" class="">润肤</a>
+                            <a href="http://www.51mkf.com/shop/cate-1431-0-0-0-0-0-0-0-0-0.html" class="">其他护理</a>
+                            <a href="http://www.51mkf.com/shop/cate-1207-0-0-0-0-0-0-0-0-0.html" class="hot_class">沐浴</a>
+                                        </dd>
+          </dl>
+                    <dl>
+            <dt>
+              <h3><a href="http://www.51mkf.com/shop/cate-1211-0-0-0-0-0-0-0-0-0.html">口腔护理</a></h3>
+            </dt>
+            <dd class="goods-class">
+                                          <a href="http://www.51mkf.com/shop/cate-1397-0-0-0-0-0-0-0-0-0.html" class="">漱口水</a>
+                            <a href="http://www.51mkf.com/shop/cate-1212-0-0-0-0-0-0-0-0-0.html" class="">牙膏</a>
+                            <a href="http://www.51mkf.com/shop/cate-1213-0-0-0-0-0-0-0-0-0.html" class="">牙刷</a>
+                                        </dd>
+          </dl>
+                    <dl>
+            <dt>
+              <h3><a href="http://www.51mkf.com/shop/cate-1221-0-0-0-0-0-0-0-0-0.html">女性护理</a></h3>
+            </dt>
+            <dd class="goods-class">
+                                          <a href="http://www.51mkf.com/shop/cate-1480-0-0-0-0-0-0-0-0-0.html" class="">卫生护垫</a>
+                            <a href="http://www.51mkf.com/shop/cate-1481-0-0-0-0-0-0-0-0-0.html" class="">私密护理</a>
+                            <a href="http://www.51mkf.com/shop/cate-1482-0-0-0-0-0-0-0-0-0.html" class="">脱毛膏</a>
+                            <a href="http://www.51mkf.com/shop/cate-1526-0-0-0-0-0-0-0-0-0.html" class="">剃/脱毛器</a>
+                            <a href="http://www.51mkf.com/shop/cate-1222-0-0-0-0-0-0-0-0-0.html" class="hot_class">卫生巾</a>
+                            <a href="http://www.51mkf.com/shop/cate-1252-0-0-0-0-0-0-0-0-0.html" class="">身体护肤</a>
+                                        </dd>
+          </dl>
+                    <dl>
+            <dt>
+              <h3><a href="http://www.51mkf.com/shop/cate-1227-0-0-0-0-0-0-0-0-0.html">香水/彩妆</a></h3>
+            </dt>
+            <dd class="goods-class">
+                                          <a href="http://www.51mkf.com/shop/cate-1469-0-0-0-0-0-0-0-0-0.html" class="">底妆</a>
+                            <a href="http://www.51mkf.com/shop/cate-1470-0-0-0-0-0-0-0-0-0.html" class="">腮红</a>
+                            <a href="http://www.51mkf.com/shop/cate-1471-0-0-0-0-0-0-0-0-0.html" class="">眼影</a>
+                            <a href="http://www.51mkf.com/shop/cate-1472-0-0-0-0-0-0-0-0-0.html" class="">眉笔</a>
+                            <a href="http://www.51mkf.com/shop/cate-1473-0-0-0-0-0-0-0-0-0.html" class="">睫毛膏</a>
+                            <a href="http://www.51mkf.com/shop/cate-1474-0-0-0-0-0-0-0-0-0.html" class="">气垫</a>
+                            <a href="http://www.51mkf.com/shop/cate-1475-0-0-0-0-0-0-0-0-0.html" class="">唇彩唇蜜/唇釉</a>
+                            <a href="http://www.51mkf.com/shop/cate-1476-0-0-0-0-0-0-0-0-0.html" class="">粉饼</a>
+                            <a href="http://www.51mkf.com/shop/cate-1477-0-0-0-0-0-0-0-0-0.html" class="">蜜粉/散粉</a>
+                            <a href="http://www.51mkf.com/shop/cate-1478-0-0-0-0-0-0-0-0-0.html" class="">遮瑕</a>
+                            <a href="http://www.51mkf.com/shop/cate-1479-0-0-0-0-0-0-0-0-0.html" class="">隔离霜/妆前乳</a>
+                            <a href="http://www.51mkf.com/shop/cate-1483-0-0-0-0-0-0-0-0-0.html" class="">唇部</a>
+                            <a href="http://www.51mkf.com/shop/cate-1517-0-0-0-0-0-0-0-0-0.html" class="">美妆工具</a>
+                            <a href="http://www.51mkf.com/shop/cate-1291-0-0-0-0-0-0-0-0-0.html" class="">BB霜</a>
+                            <a href="http://www.51mkf.com/shop/cate-1228-0-0-0-0-0-0-0-0-0.html" class="hot_class">香水</a>
+                            <a href="http://www.51mkf.com/shop/cate-1229-0-0-0-0-0-0-0-0-0.html" class="">唇彩</a>
+                                        </dd>
+          </dl>
+                            </div>
+
+      </div>
+
+
+    </li>
+
+                <li cat_id="1197" class="odd" >
+      <div class="class"><span class="arrow"></span>
+        <span class="ico"></span>
+        <h4><a href="http://www.51mkf.com/shop/cate-1197-0-0-0-0-0-0-0-0-0.html">日用百货</a></h4>
+
+       <div class="menu_list" >
+                      <span><a href="http://www.51mkf.com/shop/cate-1200-0-0-0-0-0-0-0-0-0.html">家庭清洁</a></span>
+            <span><a href="http://www.51mkf.com/shop/cate-1208-0-0-0-0-0-0-0-0-0.html">生活日用</a></span>
+            <span><a href="http://www.51mkf.com/shop/cate-1223-0-0-0-0-0-0-0-0-0.html">家居日用</a></span>
+            <span><a href="http://www.51mkf.com/shop/cate-1404-0-0-0-0-0-0-0-0-0.html">户外用品</a></span>
+            <span><a href="http://www.51mkf.com/shop/cate-1420-0-0-0-0-0-0-0-0-0.html">功能箱包</a></span>
+                    </div>
+         </div>
+      <div class="sub-class" cat_menu_id="1197">
+        <div class="sub-class-content">
+          <div class="recommend-class">
+                      </div>
+                              <dl>
+            <dt>
+              <h3><a href="http://www.51mkf.com/shop/cate-1200-0-0-0-0-0-0-0-0-0.html">家庭清洁</a></h3>
+            </dt>
+            <dd class="goods-class">
+                                          <a href="http://www.51mkf.com/shop/cate-1495-0-0-0-0-0-0-0-0-0.html" class="">驱蚊驱虫</a>
+                            <a href="http://www.51mkf.com/shop/cate-1202-0-0-0-0-0-0-0-0-0.html" class="">纸品湿巾</a>
+                            <a href="http://www.51mkf.com/shop/cate-1203-0-0-0-0-0-0-0-0-0.html" class="">清洁剂/清洁液</a>
+                            <a href="http://www.51mkf.com/shop/cate-1251-0-0-0-0-0-0-0-0-0.html" class="">清洁工具</a>
+                            <a href="http://www.51mkf.com/shop/cate-1201-0-0-0-0-0-0-0-0-0.html" class="">衣物清洁</a>
+                            <a href="http://www.51mkf.com/shop/cate-1410-0-0-0-0-0-0-0-0-0.html" class="">垃圾袋/垃圾桶</a>
+                                        </dd>
+          </dl>
+                    <dl>
+            <dt>
+              <h3><a href="http://www.51mkf.com/shop/cate-1208-0-0-0-0-0-0-0-0-0.html">生活日用</a></h3>
+            </dt>
+            <dd class="goods-class">
+                                          <a href="http://www.51mkf.com/shop/cate-1220-0-0-0-0-0-0-0-0-0.html" class="">保温杯</a>
+                            <a href="http://www.51mkf.com/shop/cate-1226-0-0-0-0-0-0-0-0-0.html" class="">塑料杯</a>
+                            <a href="http://www.51mkf.com/shop/cate-1345-0-0-0-0-0-0-0-0-0.html" class="">一次性用品</a>
+                            <a href="http://www.51mkf.com/shop/cate-1402-0-0-0-0-0-0-0-0-0.html" class="">浴室用品</a>
+                            <a href="http://www.51mkf.com/shop/cate-1430-0-0-0-0-0-0-0-0-0.html" class="">厨房器具</a>
+                                        </dd>
+          </dl>
+                    <dl>
+            <dt>
+              <h3><a href="http://www.51mkf.com/shop/cate-1223-0-0-0-0-0-0-0-0-0.html">家居日用</a></h3>
+            </dt>
+            <dd class="goods-class">
+                                          <a href="http://www.51mkf.com/shop/cate-1224-0-0-0-0-0-0-0-0-0.html" class="">装饰品</a>
+                            <a href="http://www.51mkf.com/shop/cate-1399-0-0-0-0-0-0-0-0-0.html" class="">雨伞雨具</a>
+                            <a href="http://www.51mkf.com/shop/cate-1458-0-0-0-0-0-0-0-0-0.html" class="">收纳箱/盒</a>
+                            <a href="http://www.51mkf.com/shop/cate-1519-0-0-0-0-0-0-0-0-0.html" class="">家纺</a>
+                                        </dd>
+          </dl>
+                    <dl>
+            <dt>
+              <h3><a href="http://www.51mkf.com/shop/cate-1404-0-0-0-0-0-0-0-0-0.html">户外用品</a></h3>
+            </dt>
+            <dd class="goods-class">
+                                          <a href="http://www.51mkf.com/shop/cate-1405-0-0-0-0-0-0-0-0-0.html" class="">烧烤用具</a>
+                            <a href="http://www.51mkf.com/shop/cate-1406-0-0-0-0-0-0-0-0-0.html" class="">旅行装备</a>
+                            <a href="http://www.51mkf.com/shop/cate-1407-0-0-0-0-0-0-0-0-0.html" class="">帐篷睡袋</a>
+                            <a href="http://www.51mkf.com/shop/cate-1409-0-0-0-0-0-0-0-0-0.html" class="">户外工具</a>
+                            <a href="http://www.51mkf.com/shop/cate-1487-0-0-0-0-0-0-0-0-0.html" class="">运动户外</a>
+                                        </dd>
+          </dl>
+                    <dl>
+            <dt>
+              <h3><a href="http://www.51mkf.com/shop/cate-1420-0-0-0-0-0-0-0-0-0.html">功能箱包</a></h3>
+            </dt>
+            <dd class="goods-class">
+                                          <a href="http://www.51mkf.com/shop/cate-1421-0-0-0-0-0-0-0-0-0.html" class="">拉杆箱</a>
+                            <a href="http://www.51mkf.com/shop/cate-1422-0-0-0-0-0-0-0-0-0.html" class="">登山包</a>
+                            <a href="http://www.51mkf.com/shop/cate-1451-0-0-0-0-0-0-0-0-0.html" class="">电脑包</a>
+                            <a href="http://www.51mkf.com/shop/cate-1541-0-0-0-0-0-0-0-0-0.html" class="">胸包/单肩背包</a>
+                                        </dd>
+          </dl>
+                            </div>
+
+      </div>
+
+
+    </li>
+
+                <li cat_id="1255" class="even" >
+      <div class="class"><span class="arrow"></span>
+        <span class="ico"></span>
+        <h4><a href="http://www.51mkf.com/shop/cate-1255-0-0-0-0-0-0-0-0-0.html">汽车用品</a></h4>
+
+       <div class="menu_list" >
+                      <span><a href="http://www.51mkf.com/shop/cate-1292-0-0-0-0-0-0-0-0-0.html">维修保养</a></span>
+            <span><a href="http://www.51mkf.com/shop/cate-1293-0-0-0-0-0-0-0-0-0.html">汽车装饰</a></span>
+            <span><a href="http://www.51mkf.com/shop/cate-1294-0-0-0-0-0-0-0-0-0.html">车载电器</a></span>
+            <span><a href="http://www.51mkf.com/shop/cate-1418-0-0-0-0-0-0-0-0-0.html">美容清洗</a></span>
+            <span><a href="http://www.51mkf.com/shop/cate-1416-0-0-0-0-0-0-0-0-0.html">安全自驾</a></span>
+                    </div>
+         </div>
+      <div class="sub-class" cat_menu_id="1255">
+        <div class="sub-class-content">
+          <div class="recommend-class">
+                      </div>
+                              <dl>
+            <dt>
+              <h3><a href="http://www.51mkf.com/shop/cate-1292-0-0-0-0-0-0-0-0-0.html">维修保养</a></h3>
+            </dt>
+            <dd class="goods-class">
+                                          <a href="http://www.51mkf.com/shop/cate-1295-0-0-0-0-0-0-0-0-0.html" class="hot_class">机油</a>
+                            <a href="http://www.51mkf.com/shop/cate-1297-0-0-0-0-0-0-0-0-0.html" class="">火花塞</a>
+                            <a href="http://www.51mkf.com/shop/cate-1298-0-0-0-0-0-0-0-0-0.html" class="">添加剂</a>
+                            <a href="http://www.51mkf.com/shop/cate-1299-0-0-0-0-0-0-0-0-0.html" class="">滤清器</a>
+                            <a href="http://www.51mkf.com/shop/cate-1300-0-0-0-0-0-0-0-0-0.html" class="">防冻液</a>
+                            <a href="http://www.51mkf.com/shop/cate-1346-0-0-0-0-0-0-0-0-0.html" class="">其他</a>
+                                        </dd>
+          </dl>
+                    <dl>
+            <dt>
+              <h3><a href="http://www.51mkf.com/shop/cate-1293-0-0-0-0-0-0-0-0-0.html">汽车装饰</a></h3>
+            </dt>
+            <dd class="goods-class">
+                                          <a href="http://www.51mkf.com/shop/cate-1301-0-0-0-0-0-0-0-0-0.html" class="">座垫座套</a>
+                            <a href="http://www.51mkf.com/shop/cate-1303-0-0-0-0-0-0-0-0-0.html" class="hot_class">车载支架</a>
+                            <a href="http://www.51mkf.com/shop/cate-1343-0-0-0-0-0-0-0-0-0.html" class="">汽车炭包</a>
+                            <a href="http://www.51mkf.com/shop/cate-1344-0-0-0-0-0-0-0-0-0.html" class="">储物箱</a>
+                            <a href="http://www.51mkf.com/shop/cate-1347-0-0-0-0-0-0-0-0-0.html" class="">汽车香水</a>
+                            <a href="http://www.51mkf.com/shop/cate-1348-0-0-0-0-0-0-0-0-0.html" class="">头枕腰枕</a>
+                            <a href="http://www.51mkf.com/shop/cate-1434-0-0-0-0-0-0-0-0-0.html" class="">车内除味剂</a>
+                            <a href="http://www.51mkf.com/shop/cate-1437-0-0-0-0-0-0-0-0-0.html" class="">功能小件</a>
+                                        </dd>
+          </dl>
+                    <dl>
+            <dt>
+              <h3><a href="http://www.51mkf.com/shop/cate-1294-0-0-0-0-0-0-0-0-0.html">车载电器</a></h3>
+            </dt>
+            <dd class="goods-class">
+                                          <a href="http://www.51mkf.com/shop/cate-1305-0-0-0-0-0-0-0-0-0.html" class="hot_class">行车记录仪</a>
+                            <a href="http://www.51mkf.com/shop/cate-1306-0-0-0-0-0-0-0-0-0.html" class="hot_class">车载充电器</a>
+                            <a href="http://www.51mkf.com/shop/cate-1307-0-0-0-0-0-0-0-0-0.html" class="">车载冰箱</a>
+                            <a href="http://www.51mkf.com/shop/cate-1342-0-0-0-0-0-0-0-0-0.html" class="">车载吸尘器</a>
+                            <a href="http://www.51mkf.com/shop/cate-1349-0-0-0-0-0-0-0-0-0.html" class="">车载空气净化器</a>
+                            <a href="http://www.51mkf.com/shop/cate-1350-0-0-0-0-0-0-0-0-0.html" class="">胎压监测</a>
+                            <a href="http://www.51mkf.com/shop/cate-1428-0-0-0-0-0-0-0-0-0.html" class="">车载影音</a>
+                            <a href="http://www.51mkf.com/shop/cate-1429-0-0-0-0-0-0-0-0-0.html" class="">车载蓝牙</a>
+                                        </dd>
+          </dl>
+                    <dl>
+            <dt>
+              <h3><a href="http://www.51mkf.com/shop/cate-1418-0-0-0-0-0-0-0-0-0.html">美容清洗</a></h3>
+            </dt>
+            <dd class="goods-class">
+                                          <a href="http://www.51mkf.com/shop/cate-1419-0-0-0-0-0-0-0-0-0.html" class="">玻璃水</a>
+                            <a href="http://www.51mkf.com/shop/cate-1432-0-0-0-0-0-0-0-0-0.html" class="">洗车机</a>
+                            <a href="http://www.51mkf.com/shop/cate-1433-0-0-0-0-0-0-0-0-0.html" class="">车用掸子</a>
+                            <a href="http://www.51mkf.com/shop/cate-1441-0-0-0-0-0-0-0-0-0.html" class="">清洁剂</a>
+                                        </dd>
+          </dl>
+                    <dl>
+            <dt>
+              <h3><a href="http://www.51mkf.com/shop/cate-1416-0-0-0-0-0-0-0-0-0.html">安全自驾</a></h3>
+            </dt>
+            <dd class="goods-class">
+                                          <a href="http://www.51mkf.com/shop/cate-1417-0-0-0-0-0-0-0-0-0.html" class="">灭火器</a>
+                            <a href="http://www.51mkf.com/shop/cate-1438-0-0-0-0-0-0-0-0-0.html" class="">安全座椅</a>
+                            <a href="http://www.51mkf.com/shop/cate-1439-0-0-0-0-0-0-0-0-0.html" class="">应急救援</a>
+                            <a href="http://www.51mkf.com/shop/cate-1440-0-0-0-0-0-0-0-0-0.html" class="">保温箱</a>
+                                        </dd>
+          </dl>
+                            </div>
+
+      </div>
+
+
+    </li>
+
+                <li cat_id="1256" class="odd" >
+      <div class="class"><span class="arrow"></span>
+        <span class="ico"></span>
+        <h4><a href="http://www.51mkf.com/shop/cate-1256-0-0-0-0-0-0-0-0-0.html">母婴用品</a></h4>
+
+       <div class="menu_list" >
+                      <span><a href="http://www.51mkf.com/shop/cate-1314-0-0-0-0-0-0-0-0-0.html">尿裤湿巾</a></span>
+            <span><a href="http://www.51mkf.com/shop/cate-1315-0-0-0-0-0-0-0-0-0.html">喂养洗护</a></span>
+            <span><a href="http://www.51mkf.com/shop/cate-1426-0-0-0-0-0-0-0-0-0.html">妈妈专区</a></span>
+            <span><a href="http://www.51mkf.com/shop/cate-1463-0-0-0-0-0-0-0-0-0.html">玩具乐器</a></span>
+            <span><a href="http://www.51mkf.com/shop/cate-1498-0-0-0-0-0-0-0-0-0.html">童车童床</a></span>
+                    </div>
+         </div>
+      <div class="sub-class" cat_menu_id="1256">
+        <div class="sub-class-content">
+          <div class="recommend-class">
+                                    <span><a href="http://www.51mkf.com/shop/cate-1309-0-0-0-0-0-0-0-0-0.html" title="1段">1段</a></span>
+                        <span><a href="http://www.51mkf.com/shop/cate-1310-0-0-0-0-0-0-0-0-0.html" title="2段">2段</a></span>
+                        <span><a href="http://www.51mkf.com/shop/cate-1311-0-0-0-0-0-0-0-0-0.html" title="3段">3段</a></span>
+                        <span><a href="http://www.51mkf.com/shop/cate-1312-0-0-0-0-0-0-0-0-0.html" title="特殊配方奶粉">特殊配方奶粉</a></span>
+                                  </div>
+                              <dl>
+            <dt>
+              <h3><a href="http://www.51mkf.com/shop/cate-1314-0-0-0-0-0-0-0-0-0.html">尿裤湿巾</a></h3>
+            </dt>
+            <dd class="goods-class">
+                                          <a href="http://www.51mkf.com/shop/cate-1322-0-0-0-0-0-0-0-0-0.html" class="hot_class">纸尿裤</a>
+                            <a href="http://www.51mkf.com/shop/cate-1320-0-0-0-0-0-0-0-0-0.html" class="">拉拉裤</a>
+                            <a href="http://www.51mkf.com/shop/cate-1321-0-0-0-0-0-0-0-0-0.html" class="">婴儿湿巾</a>
+                                        </dd>
+          </dl>
+                    <dl>
+            <dt>
+              <h3><a href="http://www.51mkf.com/shop/cate-1315-0-0-0-0-0-0-0-0-0.html">喂养洗护</a></h3>
+            </dt>
+            <dd class="goods-class">
+                                          <a href="http://www.51mkf.com/shop/cate-1539-0-0-0-0-0-0-0-0-0.html" class="">婴儿消毒用品</a>
+                            <a href="http://www.51mkf.com/shop/cate-1323-0-0-0-0-0-0-0-0-0.html" class="hot_class">奶瓶奶嘴</a>
+                            <a href="http://www.51mkf.com/shop/cate-1324-0-0-0-0-0-0-0-0-0.html" class="">吸奶器</a>
+                            <a href="http://www.51mkf.com/shop/cate-1325-0-0-0-0-0-0-0-0-0.html" class="">宝宝护肤</a>
+                            <a href="http://www.51mkf.com/shop/cate-1326-0-0-0-0-0-0-0-0-0.html" class="">日常护理</a>
+                            <a href="http://www.51mkf.com/shop/cate-1327-0-0-0-0-0-0-0-0-0.html" class="">洗发沐浴</a>
+                                        </dd>
+          </dl>
+                    <dl>
+            <dt>
+              <h3><a href="http://www.51mkf.com/shop/cate-1426-0-0-0-0-0-0-0-0-0.html">妈妈专区</a></h3>
+            </dt>
+            <dd class="goods-class">
+                                          <a href="http://www.51mkf.com/shop/cate-1427-0-0-0-0-0-0-0-0-0.html" class="">孕妇护肤</a>
+                            <a href="http://www.51mkf.com/shop/cate-1435-0-0-0-0-0-0-0-0-0.html" class="">防辐射服</a>
+                            <a href="http://www.51mkf.com/shop/cate-1485-0-0-0-0-0-0-0-0-0.html" class="">待产护理</a>
+                                        </dd>
+          </dl>
+                    <dl>
+            <dt>
+              <h3><a href="http://www.51mkf.com/shop/cate-1463-0-0-0-0-0-0-0-0-0.html">玩具乐器</a></h3>
+            </dt>
+            <dd class="goods-class">
+                                          <a href="http://www.51mkf.com/shop/cate-1464-0-0-0-0-0-0-0-0-0.html" class="">遥控/电动</a>
+                            <a href="http://www.51mkf.com/shop/cate-1521-0-0-0-0-0-0-0-0-0.html" class="">积木拼插</a>
+                            <a href="http://www.51mkf.com/shop/cate-1531-0-0-0-0-0-0-0-0-0.html" class="">益智玩具</a>
+                            <a href="http://www.51mkf.com/shop/cate-1467-0-0-0-0-0-0-0-0-0.html" class="">毛绒布艺</a>
+                                        </dd>
+          </dl>
+                    <dl>
+            <dt>
+              <h3><a href="http://www.51mkf.com/shop/cate-1498-0-0-0-0-0-0-0-0-0.html">童车童床</a></h3>
+            </dt>
+            <dd class="goods-class">
+                                          <a href="http://www.51mkf.com/shop/cate-1499-0-0-0-0-0-0-0-0-0.html" class="">安全座椅</a>
+                                        </dd>
+          </dl>
+                            </div>
+
+      </div>
+
+
+    </li>
+
+                <li cat_id="1185" class="even" >
+      <div class="class"><span class="arrow"></span>
+        <span class="ico"></span>
+        <h4><a href="http://www.51mkf.com/shop/cate-1185-0-0-0-0-0-0-0-0-0.html">食品酒水</a></h4>
+
+       <div class="menu_list" >
+                      <span><a href="http://www.51mkf.com/shop/cate-1189-0-0-0-0-0-0-0-0-0.html">中外名酒</a></span>
+            <span><a href="http://www.51mkf.com/shop/cate-1187-0-0-0-0-0-0-0-0-0.html">休闲食品</a></span>
+            <span><a href="http://www.51mkf.com/shop/cate-1188-0-0-0-0-0-0-0-0-0.html">饮料冲调</a></span>
+            <span><a href="http://www.51mkf.com/shop/cate-1328-0-0-0-0-0-0-0-0-0.html">粮油调味</a></span>
+            <span><a href="http://www.51mkf.com/shop/cate-1503-0-0-0-0-0-0-0-0-0.html">茗茶</a></span>
+                    </div>
+         </div>
+      <div class="sub-class" cat_menu_id="1185">
+        <div class="sub-class-content">
+          <div class="recommend-class">
+                      </div>
+                              <dl>
+            <dt>
+              <h3><a href="http://www.51mkf.com/shop/cate-1189-0-0-0-0-0-0-0-0-0.html">中外名酒</a></h3>
+            </dt>
+            <dd class="goods-class">
+                                          <a href="http://www.51mkf.com/shop/cate-1493-0-0-0-0-0-0-0-0-0.html" class="">洋酒</a>
+                            <a href="http://www.51mkf.com/shop/cate-1329-0-0-0-0-0-0-0-0-0.html" class="">白酒</a>
+                            <a href="http://www.51mkf.com/shop/cate-1330-0-0-0-0-0-0-0-0-0.html" class="">红酒/葡萄酒</a>
+                            <a href="http://www.51mkf.com/shop/cate-1331-0-0-0-0-0-0-0-0-0.html" class="">啤酒</a>
+                            <a href="http://www.51mkf.com/shop/cate-1332-0-0-0-0-0-0-0-0-0.html" class="">黄酒</a>
+                                        </dd>
+          </dl>
+                    <dl>
+            <dt>
+              <h3><a href="http://www.51mkf.com/shop/cate-1187-0-0-0-0-0-0-0-0-0.html">休闲食品</a></h3>
+            </dt>
+            <dd class="goods-class">
+                                          <a href="http://www.51mkf.com/shop/cate-1333-0-0-0-0-0-0-0-0-0.html" class="">营养零食</a>
+                            <a href="http://www.51mkf.com/shop/cate-1334-0-0-0-0-0-0-0-0-0.html" class="">休闲零食</a>
+                            <a href="http://www.51mkf.com/shop/cate-1191-0-0-0-0-0-0-0-0-0.html" class="">坚果炒货</a>
+                            <a href="http://www.51mkf.com/shop/cate-1335-0-0-0-0-0-0-0-0-0.html" class="">糖果巧克力</a>
+                            <a href="http://www.51mkf.com/shop/cate-1190-0-0-0-0-0-0-0-0-0.html" class="">肉干肉脯</a>
+                            <a href="http://www.51mkf.com/shop/cate-1250-0-0-0-0-0-0-0-0-0.html" class="">方便食品</a>
+                            <a href="http://www.51mkf.com/shop/cate-1446-0-0-0-0-0-0-0-0-0.html" class="">蜜饯果干</a>
+                            <a href="http://www.51mkf.com/shop/cate-1452-0-0-0-0-0-0-0-0-0.html" class="">饼干蛋糕</a>
+                            <a href="http://www.51mkf.com/shop/cate-1527-0-0-0-0-0-0-0-0-0.html" class="">其他</a>
+                                        </dd>
+          </dl>
+                    <dl>
+            <dt>
+              <h3><a href="http://www.51mkf.com/shop/cate-1188-0-0-0-0-0-0-0-0-0.html">饮料冲调</a></h3>
+            </dt>
+            <dd class="goods-class">
+                                          <a href="http://www.51mkf.com/shop/cate-1249-0-0-0-0-0-0-0-0-0.html" class="">饮料</a>
+                            <a href="http://www.51mkf.com/shop/cate-1192-0-0-0-0-0-0-0-0-0.html" class="">牛奶乳品</a>
+                            <a href="http://www.51mkf.com/shop/cate-1336-0-0-0-0-0-0-0-0-0.html" class="">饮用水</a>
+                            <a href="http://www.51mkf.com/shop/cate-1337-0-0-0-0-0-0-0-0-0.html" class="">咖啡奶茶</a>
+                            <a href="http://www.51mkf.com/shop/cate-1459-0-0-0-0-0-0-0-0-0.html" class="">蜂蜜/柚子茶</a>
+                                        </dd>
+          </dl>
+                    <dl>
+            <dt>
+              <h3><a href="http://www.51mkf.com/shop/cate-1328-0-0-0-0-0-0-0-0-0.html">粮油调味</a></h3>
+            </dt>
+            <dd class="goods-class">
+                                          <a href="http://www.51mkf.com/shop/cate-1511-0-0-0-0-0-0-0-0-0.html" class="">南北干货</a>
+                            <a href="http://www.51mkf.com/shop/cate-1338-0-0-0-0-0-0-0-0-0.html" class="">米面杂粮</a>
+                            <a href="http://www.51mkf.com/shop/cate-1339-0-0-0-0-0-0-0-0-0.html" class="">食用油</a>
+                            <a href="http://www.51mkf.com/shop/cate-1340-0-0-0-0-0-0-0-0-0.html" class="">调味品</a>
+                                        </dd>
+          </dl>
+                    <dl>
+            <dt>
+              <h3><a href="http://www.51mkf.com/shop/cate-1503-0-0-0-0-0-0-0-0-0.html">茗茶</a></h3>
+            </dt>
+            <dd class="goods-class">
+                                          <a href="http://www.51mkf.com/shop/cate-1504-0-0-0-0-0-0-0-0-0.html" class="">乌龙茶</a>
+                            <a href="http://www.51mkf.com/shop/cate-1505-0-0-0-0-0-0-0-0-0.html" class="">铁观音</a>
+                            <a href="http://www.51mkf.com/shop/cate-1506-0-0-0-0-0-0-0-0-0.html" class="">绿茶</a>
+                            <a href="http://www.51mkf.com/shop/cate-1507-0-0-0-0-0-0-0-0-0.html" class="">红茶</a>
+                            <a href="http://www.51mkf.com/shop/cate-1508-0-0-0-0-0-0-0-0-0.html" class="">花草茶</a>
+                            <a href="http://www.51mkf.com/shop/cate-1510-0-0-0-0-0-0-0-0-0.html" class="">龙井</a>
+                                        </dd>
+          </dl>
+                            </div>
+
+      </div>
+
+
+    </li>
+
+          </ul>
+</div>
+    </div>
+    <ul class="site-menu">
+
+
+            <!-- <li><a href="http://www.51mkf.com/shop/index.php?act=special&op=special_list" > 专题</a></li> -->
+                              <li><a
+         target="_blank" href="http://www.51mkf.com/shop/cate-1035-0-0-0-0-0-0-0-0-0.html">手机精选</a></li>
+                        <li><a
+         target="_blank" href="http://www.51mkf.com/shop/showchainlist.html">门店查询</a></li>
+                                                                                                <li><a
+         target="_blank" href="http://www.51mkf.com/shop/?act=channel&amp;op=shang">3D体验馆</a></li>
+                        <li><a href="http://www.51mkf.com/shop/integral.html" > 好礼相送</a></li>
+          </ul>
+    <div>
+    <div style="float:right"> </div>
+    </div>
+  </div>
+</nav>
+
+
+
+
+
+
+<link href="http://www.51mkf.com/shop/templates/default/css/index.css" rel="stylesheet" type="text/css">
+<link href="http://www.51mkf.com/shop/templates/default/css/index2018.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="http://www.51mkf.com/shop/resource/js/home_index.js" charset="utf-8"></script>
+<style type="text/css">
+.category { display: block !important; }
+</style>
+<div class="clear"></div>
+
+<!-- HomeFocusLayout Begin-->
+<div class="home-focus-layout">
+  <ul id="fullScreenSlides" class="full-screen-slides">
+                                        <li style="background:  url('http://www.51mkf.com/data/upload/shop/editor/web-101-101-3.jpg?510') no-repeat center top">
+            <a href="http://www.51mkf.com/shop/item-119949.html" target="_blank" title="">&nbsp;</a></li>
+                                        <li style="background:  url('http://www.51mkf.com/data/upload/shop/editor/web-101-101-5.jpg?961') no-repeat center top">
+            <a href="http://www.51mkf.com/shop/item-121013.html" target="_blank" title="">&nbsp;</a></li>
+                                        <li style="background:  url('http://www.51mkf.com/data/upload/shop/editor/web-101-101-2.jpg?683') no-repeat center top">
+            <a href="http://www.51mkf.com/shop/item-120858.html" target="_blank" title="">&nbsp;</a></li>
+                                        <li style="background:  url('http://www.51mkf.com/data/upload/shop/editor/web-101-101-1.jpg?372') no-repeat center top">
+            <a href="http://www.51mkf.com/shop/item-121103.html" target="_blank" title="">&nbsp;</a></li>
+
+  </ul>
+  <div class="jfocus-trigeminy" style="display: none;">
+    <ul>
+                              <li>
+                                        <a href="" target="_blank" title="孩子喜欢-遥控悍马">
+                <img src="http://www.51mkf.com/data/upload/shop/editor/web-101-102-1-2.jpg?321" alt="孩子喜欢-遥控悍马"></a>
+                          <a href="" target="_blank" title="天气凉了-情侣家居服">
+                <img src="http://www.51mkf.com/data/upload/shop/editor/web-101-102-1-3.jpg?268" alt="天气凉了-情侣家居服"></a>
+                          <a href="" target="_blank" title="佳节大献礼-茶满中秋">
+                <img src="http://www.51mkf.com/data/upload/shop/editor/web-101-102-1-1.jpg?123" alt="佳节大献礼-茶满中秋"></a>
+                                      </li>
+                        </ul>
+  </div>
+ <div class="swiper-button-prev swiper-button-white swiper-button-disabled"></div>
+<div class="swiper-button-next swiper-button-white"></div>
+<script type="text/javascript">
+	update_screen_focus();
+</script>  <div class="right-sidebar">
+
+
+
+<!--新增个人中心-->
+<div class="inuserdiv">
+  <script src="http://www.51mkf.com/shop/index.php?act=index&op=js_login_info&tp=center"></script>
+</div>
+<!--新增个人中心结束-->
+
+
+    <div class="proclamation">
+      <ul class="tabs-nav">
+        <li class="tabs-selected">
+          <h3>商城公告</h3>
+        </li>
+       <!--  <li>
+         <h3>招商入驻</h3>
+       </li> -->
+      </ul>
+
+      <div class="tabs-panel ">
+        <ul class="mall-news">
+                              <li><span style="color: red;"> [公告] </span><a target="_blank" href="http://www.51mkf.com/member/article-show-article_id-1915.html" title="免单 | 快来撩，最高免4999元">免单 | 快来撩，最高免4999 </a>
+            <time></time>
+          </li>
+                    <li><span style="color: red;"> [公告] </span><a target="_blank" href="http://www.51mkf.com/shop/c3BlY2lhbF9kZXRhaWwtMTQ1.html" title="约惠七夕节 | 爱就要表白，巧克力1元起购">约惠七夕节 | 爱就要表白， </a>
+            <time></time>
+          </li>
+                    <li><span style="color: red;"> [公告] </span><a target="_blank" href="http://www.51mkf.com/shop/c3BlY2lhbF9kZXRhaWwtMTM2.html" title="暑期畅玩节 | 好物1折起购">暑期畅玩节 | 好物1折起购 </a>
+            <time></time>
+          </li>
+                    <li><span style="color: red;"> [公告] </span><a target="_blank" href="http://www.51mkf.com/shop/item-111535.html" title="百变生活助手 叮咚音响">百变生活助手 叮咚音响 </a>
+            <time></time>
+          </li>
+                    <li><span style="color: red;"> [公告] </span><a target="_blank" href="http://www.51mkf.com/shop/c3BlY2lhbF9kZXRhaWwtMTI4.html" title="啤酒节 畅爽嗨啤，燃放盛夏">啤酒节 畅爽嗨啤，燃放盛夏 </a>
+            <time></time>
+          </li>
+                                                </ul>
+      </div>
+       <!-- <div class="tabs-panel tabs-hide"> <a href="http://www.51mkf.com/shop/index.php?act=show_joinin&amp;op=index" title="申请商家入驻；已提交申请，可查看当前审核状态。" class="store-join-btn" target="_blank">&nbsp;</a> <a href="http://www.51mkf.com/shop/index.php?act=seller_login&amp;op=show_login" target="_blank" class="store-join-help"><i class="icon-cog"></i>登录商家管理中心</a> </div> -->
+    </div>
+
+
+       <div class="toprighticon">
+	  <ul>
+	    <li><a href="http://www.51mkf.com/shop/index.php?act=member&amp;op=home" target="_blank"><i class="ico_user1"></i>用户中心</a></li>
+	    <li><a href="http://www.51mkf.com/shop/c3BlY2lhbF9kZXRhaWwtNzU=.html" target="_blank"><i class="ico_user2"></i>运营商</a></li>
+	    <li><a href="http://www.51mkf.com/shop/index.php?act=special&amp;op=special_detail&amp;special_id=1" target="_blank"><i class="ico_user3"></i>以旧换新</a></li>
+	    <li><a href="http://www.51mkf.com/member/article-show-article_id-17.html"><i class="ico_user4"></i>分期付款</a></li>
+	    <li><a href="http://www.51mkf.com/shop/index.php?act=show_chain&amp;op=list" target="_blank"><i class="ico_user5"></i>门店查询</a></li>
+	    <li><a href="http://www.51mkf.com/member/article-show-article_id-32.html" target="_blank"><i class="ico_user6"></i>修机机</a></li>
+	    <li><a href="http://www.51mkf.com/member/article-show-article_id-26.html"><i class="ico_user7"></i>碎屏险</a></li>
+	    <li><a href="http://www.51mkf.com/distribute/" target="_blank"><i class="ico_user8"></i>分销</a></li>
+	    <li><a href="http://www.51mkf.com/member/article-article-ac_id-2.html" target="_blank"><i class="ico_user9"></i>帮助</a></li>
+	  </ul>
+	 </div>
+<div class="policy">
+
+
+  <div class="shaixuan" style="display: none;">
+  	<div class="part1">
+		<select name="prov" onChange="selectprov(this)">
+          <option value="0"> 请选择</option>
+          			<option value="1">北京</option>
+          			<option value="2">天津</option>
+          			<option value="3">河北</option>
+          			<option value="4">山西</option>
+          			<option value="5">内蒙古</option>
+          			<option value="6">辽宁</option>
+          			<option value="7">吉林</option>
+          			<option value="8">黑龙江</option>
+          			<option value="9">上海</option>
+          			<option value="10">江苏</option>
+          			<option value="11">浙江</option>
+          			<option value="12">安徽</option>
+          			<option value="13">福建</option>
+          			<option value="14">江西</option>
+          			<option value="15">山东</option>
+          			<option value="16">河南</option>
+          			<option value="17">湖北</option>
+          			<option value="18">湖南</option>
+          			<option value="19">广东</option>
+          			<option value="20">广西</option>
+          			<option value="21">海南</option>
+          			<option value="22">重庆</option>
+          			<option value="23">四川</option>
+          			<option value="24">贵州</option>
+          			<option value="25">云南</option>
+          			<option value="26">西藏</option>
+          			<option value="27">陕西</option>
+          			<option value="28">甘肃</option>
+          			<option value="29">青海</option>
+          			<option value="30">宁夏</option>
+          			<option value="31">新疆</option>
+          			<option value="32">台湾</option>
+          			<option value="33">香港</option>
+          			<option value="34">澳门</option>
+          			<option value="35">海外</option>
+
+		</select>
+	</div>
+	<div class="part1">
+		<select name="city" id="city" onChange="selectcity(this)">
+          <option value="0"> 请选择</option>
+		</select>
+	</div>
+	<a class="citysave" href="">保存</a>
+ </div>
+
+  <div class="city">
+  <span id="wea_city"></span>
+  <a href="javascript:;" class="edit">修改</a>
+  </div>
+  <div class="wimg">
+    <img id="wea_pic" src="">
+  </div>
+  <div class="winfo">
+    <span id="weather"></span>
+    <span id="temper">℃</span>
+  </div>
+
+</div>
+  </div>
+</div>
+<script>
+    $('.edit').on('click',function(){
+        $('.shaixuan').css('display','block');
+    });
+
+  $('.citysave').click(function(){
+    var area= $('#city').val();
+    $.ajax({
+      type: "POST",
+      url: SHOP_SITE_URL+'/index.php?act=vindex&op=json_weather',
+      data:{area:area},
+
+      success: function(result){
+        var data= eval('('+result+')');
+        if(data.status==1){
+          $('#wea_city').html(data.city);
+          $('#wea_pic').attr('src',data.msg.now.weather_pic);
+          $('#weather').html(data.msg.now.weather);
+          $('#temper').html(data.msg.now.temperature+'℃');
+            $('.shaixuan').css('display','none');
+        }
+      }
+    });
+
+  });
+  function selectprov(a){
+    var prov=$(a).val();
+
+    $.ajax({
+      type: "POST",
+      url: SHOP_SITE_URL+'/index.php?act=vindex&op=json_area',
+      data:{area_id:prov},
+
+      success: function(result){
+        var str = '<option value="0">请选择</option>';
+        var data= eval('('+result+')');
+        $('#city').empty();
+
+        $.each(data.msg, function (i, x) {
+          str += '<option value="' + x.area_id+'_'+ x.area_name + '">' + x.area_name + '</option>'
+        });
+        $('#city').append(str);
+      }
+    });
+
+  }
+</script>
+<!--HomeFocusLayout End-->
+
+
+<div class="nch-breadcrumb-layout" >
+  </div>
+
+{% block layout %}
+{% endblock layout %}
+                    <link href="http://www.51mkf.com/chat/templates/default/css/chat.css" rel="stylesheet" type="text/css">
+                    <div style="clear: both;"></div>
+                    <div id="web_chat_dialog" style="display: none;float:right;">
+                    </div>
+                    <a id="chat_login" href="javascript:void(0)" style="display: none;"></a>
+                    <script type="text/javascript">
+                    var LOGIN_SITE_URL = 'http://www.51mkf.com/member';
+                    var CHAT_SITE_URL = 'http://www.51mkf.com/chat';
+                    var SHOP_SITE_URL = 'http://www.51mkf.com/shop';
+                    var connect_url = "http://www.51mkf.com:8090";
+
+                    var layout = "layout/home_layout.php";
+                    var act_op = "vindex_index";
+                    var chat_goods_id = "0";
+                    var user = {};
+
+                    user['u_id'] = "";
+                    user['u_name'] = "";
+					user['u_name_a'] = "";
+                    user['s_id'] = "";
+                    user['s_name'] = "";
+                    user['s_avatar'] = "http://www.51mkf.com/data/upload/shop/common/default_store_avatar.png";
+                    user['avatar'] = "http://www.51mkf.com/data/upload/shop/common/default_user_portrait.gif";
+
+                    $("#chat_login").nc_login({
+                      nchash:'',
+                      formhash:'-1DZBs2kuvBOjtHbhAi28jAw6Sb9m4U'
+                    });
+                    </script><script type="text/javascript" src="http://www.51mkf.com/data/resource/js/jquery.charCount.js" charset="utf-8"></script><script type="text/javascript" src="http://www.51mkf.com/data/resource/js/jquery.smilies.js" charset="utf-8"></script><script type="text/javascript" src="http://www.51mkf.com/chat/resource/js/user.js" charset="utf-8"></script>
+<div id="cti" style="display: none;">
+  <div class="wrapper">
+    <ul>
+                                <li><span class="line"></span> <span class="icon"> <img style="width: 60px;" src="http://www.51mkf.com/data/upload/shop/contracticon/7day_60.gif" /> </span> <span class="name"> 门店保障 </span> </li>
+                                  <li><span class="line"></span> <span class="icon"> <img style="width: 60px;" src="http://www.51mkf.com/data/upload/shop/contracticon/pz_60.gif" /> </span> <span class="name"> 正品承诺 </span> </li>
+                                  <li><span class="line"></span> <span class="icon"> <img style="width: 60px;" src="http://www.51mkf.com/data/upload/shop/contracticon/psbf_60.gif" /> </span> <span class="name"> 全国联保 </span> </li>
+                                  <li><span class="line"></span> <span class="icon"> <img style="width: 60px;" src="http://www.51mkf.com/data/upload/shop/contracticon/jswl_60.gif" /> </span> <span class="name"> 急速物流 </span> </li>
+                        </ul>
+  </div>
+</div>
+<div class="footerfuwu"><div class="fuwubox"></div></div>
+<div id="faq">
+  <div class="wrapper">
+        <ul>
+                  <li>
+        <dl class="s1">
+          <dt>
+            购物指南          </dt>
+                              <dd><i></i><a href="http://www.51mkf.com/member/article-show-article_id-6.html" title="如何注册成为会员"> 如何注册成为会员 </a></dd>
+                    <dd><i></i><a href="http://www.51mkf.com/member/article-show-article_id-7.html" title="如何搜索"> 如何搜索 </a></dd>
+                    <dd><i></i><a href="http://www.51mkf.com/member/article-show-article_id-8.html" title="忘记密码"> 忘记密码 </a></dd>
+                    <dd><i></i><a href="http://www.51mkf.com/member/article-show-article_id-10.html" title="购物流程"> 购物流程 </a></dd>
+                            </dl>
+      </li>
+                        <li>
+        <dl class="s2">
+          <dt>
+            商家服务          </dt>
+                              <dd><i></i><a href="http://www.51mkf.com/member/article-show-article_id-11.html" title="如何管理店铺"> 如何管理店铺 </a></dd>
+                    <dd><i></i><a href="http://www.51mkf.com/member/article-show-article_id-12.html" title="查看售出商品"> 查看售出商品 </a></dd>
+                    <dd><i></i><a href="http://www.51mkf.com/member/article-show-article_id-13.html" title="如何发货"> 如何发货 </a></dd>
+                    <dd><i></i><a href="http://www.51mkf.com/member/article-show-article_id-15.html" title="如何申请开店"> 如何申请开店 </a></dd>
+                    <dd><i></i><a href="http://www.51mkf.com/member/article-show-article_id-20.html" title="商品发布"> 商品发布 </a></dd>
+                            </dl>
+      </li>
+                        <li>
+        <dl class="s3">
+          <dt>
+            支付及配送          </dt>
+                              <dd><i></i><a href="http://www.51mkf.com/member/article-show-article_id-49.html" title="配送与收货"> 配送与收货 </a></dd>
+                    <dd><i></i><a href="http://www.51mkf.com/member/article-show-article_id-48.html" title="配送方式"> 配送方式 </a></dd>
+                    <dd><i></i><a href="http://www.51mkf.com/member/article-show-article_id-47.html" title="交易须知"> 交易须知 </a></dd>
+                    <dd><i></i><a href="http://www.51mkf.com/member/article-show-article_id-17.html" title="在线支付"> 在线支付 </a></dd>
+                            </dl>
+      </li>
+                        <li>
+        <dl class="s4">
+          <dt>
+            售后服务          </dt>
+                              <dd><i></i><a href="http://www.51mkf.com/member/article-show-article_id-26.html" title="联系客服"> 联系客服 </a></dd>
+                    <dd><i></i><a href="http://www.51mkf.com/member/article-show-article_id-31.html" title="退换货政策"> 退换货政策 </a></dd>
+                    <dd><i></i><a href="http://www.51mkf.com/member/article-show-article_id-32.html" title="退换货流程"> 退换货流程 </a></dd>
+                    <dd><i></i><a href="http://www.51mkf.com/member/article-show-article_id-34.html" title="退款申请"> 退款申请 </a></dd>
+                            </dl>
+      </li>
+                        <li>
+        <dl class="s5">
+          <dt>
+            会员服务          </dt>
+                              <dd><i></i><a href="http://www.51mkf.com/member/article-show-article_id-18.html" title="会员修改密码"> 会员修改密码 </a></dd>
+                    <dd><i></i><a href="http://www.51mkf.com/member/article-show-article_id-19.html" title="会员修改个人资料"> 会员修改个人资料 </a></dd>
+                    <dd><i></i><a href="http://www.51mkf.com/member/article-show-article_id-21.html" title="修改收货地址"> 修改收货地址 </a></dd>
+                    <dd><i></i><a href="http://www.51mkf.com/member/article-show-article_id-39.html" title="积分细则"> 积分细则 </a></dd>
+                    <dd><i></i><a href="http://www.51mkf.com/member/article-show-article_id-40.html" title="积分兑换说明"> 积分兑换说明 </a></dd>
+                            </dl>
+      </li>
+                        <li>
+        <dl class="s6">
+          <dt>
+            关于迈客风          </dt>
+                              <dd><i></i><a href="http://www.51mkf.com/member/article-show-article_id-22.html" title="品牌故事"> 品牌故事 </a></dd>
+                    <dd><i></i><a href="http://www.51mkf.com/member/article-show-article_id-23.html" title="联系我们"> 联系我们 </a></dd>
+                    <dd><i></i><a href="http://www.51mkf.com/member/article-show-article_id-24.html" title="招聘英才"> 招聘英才 </a></dd>
+                    <dd><i></i><a href="http://www.51mkf.com/member/article-show-article_id-25.html" title="合作及洽谈"> 合作及洽谈 </a></dd>
+                            </dl>
+      </li>
+                </ul>
+        <style>
+
+
+.footerfuwu{width: 100%; height: auto; overflow: hidden; background:#fff ;margin-top:30px; padding-top: 10px;border-top: 1px solid #eee; }
+.fuwubox{width: 1200px; height: 80px;  padding: 0px 0 15px 0; margin: 0 auto; border-bottom: 1px solid #eee; background:#fff url(http://www.51mkf.com/shop/templates/default/images/fuwu.png) top center no-repeat; }
+.public-nav-layout {background: #fff;}
+#faq li{width: 156px; padding: 10px 0;}
+#faq dl{width: 100%;}
+#faq dl dt{font: 400 16px/20px "microsoft yahei";    color: #333; margin: 5px 0 15px 0;}
+#faq dl dd{padding: 4px 5px;}
+#faq dl dd i{  display: none;}
+#faq dl dd a{color:#777; transition:all 0.15s;}
+#faq dl dd a:hover{color:#f60;}
+#faq{background-color: #fff;}
+#faq .wrapper{border:none;}
+#faq ul{padding:20px 0; float: left; width: 932px; }
+#footer{line-height:30px; padding:24px 0 20px 0;background:#f5f5f5;width:100%;}
+#footer p{padding:0}
+.friendlylink{background: #fafafa;}
+#faq .bothot{float: right; width: 243px; border-left: 1px solid #eee; text-align: center; margin-top: 40px; padding:20px 0 30px 20px; }
+#faq .bothot .hotNum{    margin: 0 0 10px; font-size: 22px; line-height: 1;color: #ff6700;}
+#faq .bothot .hotTime{margin: 0 0 20px; font-size: 12px;}
+#faq .bothot .shopAddress a{width: 160px; display: block; line-height: 28px; background: #fff; transition: all 0.2s; color: #dd4500; margin: 0 auto; border: 1px solid #ff6700;opacity: 0.8;}
+#faq .bothot .shopAddress:hover a{ background: #ff6700; color: #fff; opacity: 1;}
+/*首页*/
+.home-standard-layout{background-color: #fff;box-shadow:0px 2px 10px rgba(0,0,0,0.075); margin-top:25px; padding-top:10px;}
+.home-standard-layout .tabs-nav li{opacity: 0;}
+.home-sale-layout .left-layout{background-color: #fff}
+.home-standard-layout .left-sidebar .title .txt-type{padding-left:8px;}
+</style>
+
+
+
+    <div class="bothot">
+    <div class="hotNum">400-860-5151</div>
+    <div class="hotTime">08:30-18:00<br></div>
+    <div class="shopAddress"><a href="/shop/showchainlist.html" target="_blank">迈客风全国门店地址</a></div>
+    </div>
+  </div>
+</div>
+
+<div id="footer" class="wrapper">
+  <p><a href="http://www.51mkf.com/shop">首页</a>
+                                | <a  href="http://www.51mkf.com/member/?act=article&amp;article_id=24">招聘英才</a>
+                | <a  href="http://www.51mkf.com/member/index.php?act=article&article_id=25">合作及洽谈</a>
+                | <a  href="http://www.51mkf.com/member/index.php?act=article&article_id=23">联系我们</a>
+                | <a  href="http://www.51mkf.com/member/index.php?act=article&amp;article_id=22">关于迈客风</a>
+                                      </p> Copyright © 2005-2018  迈客风51MKF.COM 版权所有. 客服电话：400-860-5151<br />
+  广东迈客风信息科技有限公司。
+ <a href="http://www.miibeian.gov.cn/" target="_blank" rel="nofollow"> 粤ICP备18054728号-1</a>
+
+<p style="color: rgb(102, 102, 102); line-height: 28px; text-align: center; margin: 6px auto;">
+<!--可信网站图片LOGO安装开始-->
+<script src="http://kxlogo.knet.cn/seallogo.dll?sn=e17051644190067804zvpi000000&size=0"></script>
+<!--可信网站图片LOGO安装结束-->
+<a id="___szfw_logo___" href="https://search.szfw.org/cert/l/CX20150206006615006720" target="_blank" rel="nofollow">
+<img src="/data/upload/shop/common/logo_chengxin.png" alt="诚信网站" height="40" width="108"> </a>
+<a href="http://si.trustutn.org/info?sn=368170818030038265834&certType=1"  id="_pingansec_bottomimagelarge_brand" target="_blank" rel="nofollow"> <img src="http://v.trustutn.org/images/cert/brand_bottom_large.jpg" alt="认证联盟" height="40" width="108"> </a>
+<a href="http://www.miibeian.gov.cn/ " target="_blank" rel="nofollow">
+<img src="/data/upload/shop/common/logo_jingying.gif" alt="迈客风官网经营性网站备案中心" height="40" width="108"></a>
+<!--<iframe src="http://wljg.gdgs.gov.cn/lz.ashx?vie=41BEF320E537FBF5FB05128371785C721B62C9F7612417EFE88227D9859A30E0AAEAA3136C9D60B41253188EECF6B601" scrolling="no" style="width:117px; position:absolute;height:40px; padding-left:8px;overflow:hidden;" frameborder="0" allowtransparency="true"></iframe>-->
+</p>
+  </div>
+
+
+
+
+
+<script type="text/javascript" src="http://www.51mkf.com/data/resource/js/jquery.cookie.js"></script>
+<link href="http://www.51mkf.com/data/resource/js/perfect-scrollbar.min.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="http://www.51mkf.com/data/resource/js/perfect-scrollbar.min.js"></script>
+<script type="text/javascript" src="http://www.51mkf.com/data/resource/js/qtip/jquery.qtip.min.js"></script>
+<link href="http://www.51mkf.com/data/resource/js/qtip/jquery.qtip.min.css" rel="stylesheet" type="text/css">
+<!-- 对比 -->
+<script src="http://www.51mkf.com/shop/resource/js/compare.js"></script>
+<script type="text/javascript">
+$(function(){
+	// Membership card
+	$('[nctype="mcard"]').membershipCard({type:'shop'});
+});
+</script></body>
+</html>

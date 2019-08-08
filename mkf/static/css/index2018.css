@@ -1,0 +1,142 @@
+@charset "utf-8";
+/* CSS Document */
+
+/*全局、顶部*/
+.top-active { position: relative; clear: both; width: 100%; min-width: 990px; font-size: 0;}
+.top-active .btn { position: absolute; top: 3px; right: 56px; width: 15px; height: 15px; overflow: hidden; background: url(/shop/templates/default/images/close.png?v=3ea73) -241px -145px;}
+.top-active .btn-open { background-position: -241px -160px;}
+.top-active-wrap a{width:1200px; height:100px; margin: 0 auto; overflow:hidden; display:block;}
+
+body,.header-wrap,.public-nav-layout{background: #f0f1f0 !important; }
+.head-app{background:#f0f1f0 url(../images/top_bg2018.png) no-repeat 0 -60px;}
+.public-top-layout{background: #E5E5E5; position: relative; z-index: 1000;}
+.head-search-bar .search-form{padding: 0;}
+.public-nav-layout{border-bottom:none;}
+.public-nav-layout .category .menu{opacity: 1 !important;}
+.home-focus-layout{height: 480px !important; width: 760px !important; margin: 0 auto;}
+.toprighticon{height: 132px;}
+.tabs-panel{ overflow: hidden;}
+.header-wrap{position: relative;}
+.public-head-layout .site-logo{width: 212px !important; height: 136px !important;    position: absolute;  z-index: 111;  top: 0px; margin-top: 0;  background: #fff; overflow: hidden;    box-shadow: 0px -1px 7px rgba(0,0,0,0.15);}
+.public-head-layout .site-logo img{margin: 30px 0 0 8px; max-height: 80px;}
+.head-app{ margin: 15px 20px 0 195px;}
+.head-app:hover{background:url(../images/top_bg2018.png) no-repeat 0 -60px;}
+.head-app .download-app{top: 52px; left: 40px;}
+.head-app .pic{ background:#f0f1f0 url(../images/app.gif) no-repeat 0 0;}
+.head-search-layout{width: 520px;}
+.head-search-bar .input-text{width: 78%; padding: 6px 2%;}
+.head-search-bar .input-submit, .head-search-bar .input-submit:hover{width: 17%; float: none;}
+.swiper-button-prev{ margin-left: -380px; }
+.swiper-button-next {margin-right: -380px; }
+.public-nav-layout .category li.hover .sub-class{margin-top: -2px !important; height: 451px; box-shadow: 1px 0px 5px rgba(0,0,0,0.15); }
+.public-nav-layout .category .sub-class{border: none !important;}
+.public-nav-layout .category .menu:hover{border: none !important;box-shadow: 1px 0px 5px rgba(0,0,0,0.15);}
+.swiper-button-prev,.swiper-button-next{background: url(https://www.51mkf.com/shop/templates/default/images/slide.png) !important;}
+.swiper-button-prev{background-position: -2px -60px !important;}
+.swiper-button-next{background-position: -42px -60px !important;}
+.swiper-button-prev:hover{background-position: -2px 0px !important;}
+.swiper-button-next:hover{background-position: -42px 0px !important;}
+.home-focus-layout .swiper-button-next.swiper-button-disabled, .home-focus-layout .swiper-button-prev.swiper-button-disabled{cursor: pointer; pointer-events: auto;}
+
+
+/* 首页滚动栏右侧：个人中心、公告、功能栏、天气 */
+.inuserdiv{width: 206px; height: 142px; margin: 20px auto 0; border-bottom: 1px solid #eee; text-align: center;}
+.inuserdiv .userimg{width: 60px; height: 60px; overflow: hidden; display: block; margin: 0 auto; border-radius: 50%;}
+.inuserdiv .userimg img{width: 100%;}
+.inuserdiv .welcome,.inuserdiv .userlink{margin-top: 10px; line-height: 20px; display: block;}
+.userlink a{border-radius: 10px; border: 1px solid #dbb; padding: 2px 10px; margin: 0 6px;color: #333;}
+.userlink a:hover{ clear: #d35273; border-color:#d35273;}
+.proclamation .tabs-nav li.tabs-selected{width: 208px;}
+.inuserdiv .nnn{display: none;}
+.toprighticon{height: 66px; overflow: hidden;}
+.proclamation{height: 154px; overflow: hidden;}
+.proclamation .tabs-nav li{border: none; border-color:transparent; }
+.tabs-panel .store-join-btn{background: url(http://www.51mkf.com/shop/templates/default/images/home_bg.png) no-repeat 15px -163px; margin-top: 0;    background-size: 95% auto; margin-bottom: 0;}
+.home-focus-layout .policy{height: 61px; margin-top: 10px;}
+.policy{position: relative;}
+.policy .city, .policy .wimg, .policy .winfo{float: left; text-align: center; position: relative;}
+.policy .city{width: 58px; margin-left: 8px; font-weight: 700; color: #333;}
+.policy .city span{font-size: 14px;}
+.policy .shaixuan{position: absolute; width: 190px; padding: 10px; left: 0; top: 70px; box-shadow: 0 2px 6px rgba(0,0,0,0.2); background: #fff;}
+.policy .shaixuan div{float: left; margin-right: 6px;}
+.policy .shaixuan .citysave{float: left; width: 36px; height: 30px; text-align: center; line-height: 36px; }
+.policy .wimg{width: 64px;}
+.policy .winfo{width: 68px;}
+.policy span ,.policy a{display: block;  text-align: center; line-height: 24px;}
+.policy img{width: 100%; display: inline-block;}
+
+/* 首页首屏秒杀 */
+.swiper-container { width: 100%; height: 100px; }
+.swiper-slide {text-align: center;font-size: 18px; background: #fff;/* Center slide text vertically */display: -webkit-box; display: -ms-flexbox; display: -webkit-flex; display: flex; -webkit-box-pack: center; -ms-flex-pack: center; -webkit-justify-content: center; justify-content: center; -webkit-box-align: center; -ms-flex-align: center; -webkit-align-items: center; align-items: center;}
+body{ background: #f0f1f0; font-family: 微软雅黑; padding: 0; margin:0; }
+i{font-style: normal;}
+.midDIV{width: 100%; height: auto; position: relative; background: #f5f5f5; overflow: hidden;}
+.midDIV .DIVbox{width: 1200px; margin: 0 auto; overflow: hidden; }
+.topsale{float: left;}
+.topact{float: left; width: 180px; background: #fff; height: 250px; float: right;padding: 10px; overflow: hidden;}
+.topact img{max-height: 250px; width: 100%;}
+.saleimg{width: 190px; height: 270px; float: left; position: relative;}
+.saleimg img{width:190px; display: block; height: 270px; margin: 0 auto; }
+.saletime{position: absolute; width: 140px; height: 40px; top: 208px; left: 25px}
+.saletime ul{margin: 0; padding: 0;}
+.saletime ul li{ width: 40px; height: 40px; float: left; list-style-type: none; text-align: center; color: #fff; font-size: 19px; font-weight: 700; margin-left: 5px; line-height: 40px;}
+.sildesale{width: 798px;float: left; margin-right: 10px; height: 270px;}
+.sildesale .sslink{display: block; width: 100%; height: 100%; text-decoration: none; color: #888; text-align: center;}
+.sslink .itemimg{width:140px; display: block; height: 140px; margin: 35px auto 20px; }
+.sslink p{width: 90%; height: 20px; line-height: 20px; display: block; overflow: hidden;font-size: 12px; margin: 0 auto;white-space: nowrap;text-overflow: ellipsis;}
+.sslink .itemprice{width: 164px; margin: 12px auto;}
+.sslink .priceB,.sslink .priceA {width: 80px; height: 20px; line-height: 20px; display: block; float: left; border: 1px solid #e6384f; font-size: 14px;}
+.sslink i{font-style: normal; font-size: 12px; margin-right: 2px;}
+.priceA{background:#e6384f; color: #fff; }
+.priceB{border-left: none; color: #aaa;text-decoration: line-through;}
+.priceB b{font-weight: 400; font-size: 12px;  }
+.sildesale .sslink:hover p{color: #f23;}
+.sildesale .swiper-button-prev,.sildesale .swiper-button-next{opacity: 0.5; transition: opacity 0.2s; margin-top: -50px;}
+.sildesale:hover .swiper-button-prev,.sildesale:hover .swiper-button-next{opacity: 0.75;}
+.sildesale .swiper-button-prev{margin-left:-400px !important;background-position: -6px -67px !important;}
+.sildesale .swiper-button-next{margin-right:-400px !important;background-position: -46px -67px !important;}
+.sildesale .swiper-button-prev:hover{background-position: -6px -7px !important;}
+.sildesale .swiper-button-next:hover{background-position: -46px -7px !important;}
+
+/* 首页楼层样式 */
+.midDIV .floorDIV{margin: 30px auto 0;}
+.floorT{width: 352px; height: 410px; padding: 20px; background: #fff; border-radius: 2px; float: left;}
+.floorT .topname{height: 32px; margin: 0 0 15px 0; color: #aaa;font-size: 15px;}
+.floorT .topname b{font-size: 22px; font-weight: 400; line-height: 32px; color: #333;}
+.floorT .p_img {width: 100%; height: 180px;}
+.floorT .p_img img{width: 100%; height: 180px;}
+.floorT .blank_link {width: 352px; overflow: hidden; margin-top: 15px; border-top: 1px solid #ddd;border-left: 1px solid #ddd;}
+.floorT .blank_link a{display: block; float: left; width: 87px; height: 55px;border-right: 1px solid #ddd;border-bottom: 1px solid #ddd; }
+.floorT .blank_link a img{display: block; width: 100%; margin-top: 12px;}
+.floorT .item_link a{width: 170px; display: block; float: left; margin-top: 12px;}
+.floorT .item_link a img{width: 100%; height: 170px;}
+.floorT .item_link a:nth-child(1){margin-right: 12px;}
+.floorI{width: 392px; height: 450px; padding: 0px;  border-radius: 2px; float: left;  }
+.floorIbox{width: 440px;}
+.floorI a{width: 190px; height: 219px; margin: 0 12px 12px 0; float: left; display: block;text-decoration: none; color: #888; text-align: center;background: #fff;}
+.floorI .itemimg{width:100px; display: block; height: 100px; margin: 35px auto 20px; }
+.floorI p{width: 85%; height: 20px; line-height: 20px; display: block; overflow: hidden;font-size: 13px; margin: 0 auto;white-space: nowrap;text-overflow: ellipsis;}
+.floorI .itemprice{width: 164px; margin: 6px auto; color: #d23; font-size: 12px;}
+.floorI .itemprice b{font-size: 14px; font-weight: 400; margin-left: 2px;}
+.midDIV .floorDIV .fbox{margin-right: 12px;}
+.midDIV .floorDIV .fbox:nth-child(3){margin-right: 0;}
+
+
+/* 首页京造模块 */
+.floorA,.floorA img{width: 100%; height: auto; overflow: hidden; display: block;}
+.floorA  img{margin-bottom: 0px;}
+.midDIV .floorDIV .typeI4{width: 1200px; margin-right: 0; height: 395px; padding-top: 10px; background-color: #fcbf92; height: 345px;}
+.typeI4 *{transition: all .2s;}
+.typeI4 a{width: 285px; height: 380px; position: relative; margin: 0 0px 12px 12px;    width: 225px;height: 330px;}
+.typeI4 .floorIbox{width: 1220px;}
+.typeI4 .itemimg{width: 252px; height: 252px; margin: 20px auto;    height: 202px; width: 202px;}
+.typeI4 p{width: 252px; height: 40px; white-space: inherit;text-overflow: initial; text-align: left;   width: 202px;}
+.typeI4 .itemprice{font-size: 14px; width: 252px; text-align: left;   width: 202px;}
+.typeI4 .itemprice b{font-size: 18px;}
+.typeI4_bq{position: absolute; right: 22px; top: 338px; height: auto; border: 1px solid #f78; color: #e45; padding: 0px 6px; border-radius: 2px; opacity: 0.75; top: 288px;}
+.typeI4 .itemlist a:hover .typeI4_bq{opacity: 1;}
+.typeI4 a:hover{box-shadow: 0px 0px 20px rgba(0,0,0,0.2);}
+.midDIV .DIVbox{border-radius: 6px;}
+
+
+
